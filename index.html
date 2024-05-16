@@ -36,61 +36,93 @@
 <body>
     <div style="position: relative; z-index: 10;">
         <h1>译林高中英语单词选选看</h1>
-        <table>
-             <tr>
-            <td><a href="b1u1.html">b1u1</a></td>
-            <td><a href="b1u2.html">b1u2</a></td>
-            <td><a href="b1u3.html">b1u3</a></td>
-            <td><a href="b1u4.html">b1u4</a></td>
-        </tr>
-        <tr>
-            <td><a href="b2u1.html">b2u1</a></td>
-            <td><a href="b2u2.html">b2u2</a></td>
-            <td><a href="b2u3.html">b2u3</a></td>
-            <td><a href="b2u4.html">b2u4</a></td>
-        </tr>
-        <tr>
-            <td><a href="b3u1.html">b3u1</a></td>
-            <td><a href="b3u2.html">b3u2</a></td>
-            <td><a href="b3u3.html">b3u3</a></td>
-            <td><a href="b3u4.html">b3u4</a></td>
-        </tr>
-        <tr>
-            <td><a href="x1u1.html">x1u1</a></td>
-            <td><a href="x1u2.html">x1u2</a></td>
-            <td><a href="x1u3.html">x1u3</a></td>
-            <td><a href="x1u4.html">x1u4</a></td>
-        </tr>
-        <tr>
-            <td><a href="x2u1.html">x2u1</a></td>
-            <td><a href="x2u2.html">x2u2</a></td>
-            <td><a href="x2u3.html">x2u3</a></td>
-            <td><a href="x2u4.html">x2u4</a></td>
-        </tr>
-        <tr>
-            <td><a href="x3u1.html">x3u1</a></td>
-            <td><a href="x3u2.html">x3u2</a></td>
-            <td><a href="x3u3.html">x3u3</a></td>
-            <td><a href="x3u4.html">x3u4</a></td>
-        </tr>
-        <tr>
-            <td><a href="x4u1.html">x4u1</a></td>
-            <td><a href="x4u2.html">x4u2</a></td>
-            <td><a href="x4u3.html">x4u3</a></td>
-            <td><a href="x4u4.html">x4u4</a></td>
-        </tr>
+        <div>
+            <input type="text" id="regCodeInput" placeholder="请输入注册码">
+            <button onclick="validateCode()">提交</button>
+        </div>
+        <table id="wordTable">
+            <tr>
+                <td><a href="b1u1.html" class="link">b1u1</a></td>
+                <td><a href="b1u2.html" class="link">b1u2</a></td>
+                <td><a href="b1u3.html" class="link">b1u3</a></td>
+                <td><a href="b1u4.html" class="link">b1u4</a></td>
+            </tr>
+            <tr>
+                <td><a href="b2u1.html" class="link">b2u1</a></td>
+                <td><a href="b2u2.html" class="link">b2u2</a></td>
+                <td><a href="b2u3.html" class="link">b2u3</a></td>
+                <td><a href="b2u4.html" class="link">b2u4</a></td>
+            </tr>
+            <tr>
+                <td><a href="b3u1.html" class="link">b3u1</a></td>
+                <td><a href="b3u2.html" class="link">b3u2</a></td>
+                <td><a href="b3u3.html" class="link">b3u3</a></td>
+                <td><a href="b3u4.html" class="link">b3u4</a></td>
+            </tr>
+            <tr>
+                <td><a href="x1u1.html" class="link">x1u1</a></td>
+                <td><a href="x1u2.html" class="link">x1u2</a></td>
+                <td><a href="x1u3.html" class="link">x1u3</a></td>
+                <td><a href="x1u4.html" class="link">x1u4</a></td>
+            </tr>
+            <tr>
+                <td><a href="x2u1.html" class="link">x2u1</a></td>
+                <td><a href="x2u2.html" class="link">x2u2</a></td>
+                <td><a href="x2u3.html" class="link">x2u3</a></td>
+                <td><a href="x2u4.html" class="link">x2u4</a></td>
+            </tr>
+            <tr>
+                <td><a href="x3u1.html" class="link">x3u1</a></td>
+                <td><a href="x3u2.html" class="link">x3u2</a></td>
+                <td><a href="x3u3.html" class="link">x3u3</a></td>
+                <td><a href="x3u4.html" class="link">x3u4</a></td>
+            </tr>
+            <tr>
+                <td><a href="x4u1.html" class="link">x4u1</a></td>
+                <td><a href="x4u2.html" class="link">x4u2</a></td>
+                <td><a href="x4u3.html" class="link">x4u3</a></td>
+                <td><a href="x4u4.html" class="link">x4u4</a></td>
+            </tr>
         </table>
         <p>湖南省临武县第一中学融合课题组</p>
         <p>微信号公众号：熊猫李English工作室李国保</p>
         <p>网页浏览<span id="viewCount"></span>次</p>
     </div>
     <script>
-        // 这里的代码仅用于展示，实际的计数功能需要服务器支持
-        let viewCount = localStorage.getItem('viewCount') || 0;
-        viewCount++;
-        localStorage.setItem('viewCount', viewCount);
-        document.getElementById('viewCount').textContent = viewCount;
+        // 测试注册码
+        const validCodes = ['ABC123', 'DEF456', 'GHI789'];
 
+        // 验证注册码函数
+        function validateCode() {
+            const inputCode = document.getElementById('regCodeInput').value;
+            if (validCodes.includes(inputCode)) {
+                document.querySelectorAll('.link').forEach(link => {
+                    link.style.pointerEvents = 'auto';
+                    link.style.color = 'white';
+                });
+                alert('注册码正确，可以访问链接');
+            } else {
+                document.querySelectorAll('.link').forEach(link => {
+                    link.style.pointerEvents = 'none';
+                    link.style.color = 'gray';
+                });
+                alert('注册码错误，请联系作者索要注册码');
+            }
+        }
+
+        // 初始化页面时禁用链接
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.link').forEach(link => {
+                link.style.pointerEvents = 'none';
+                link.style.color = 'gray';
+            });
+
+            // 计数功能（仅用于展示，实际需要服务器支持）
+            let viewCount = localStorage.getItem('viewCount') || 0;
+            viewCount++;
+            localStorage.setItem('viewCount', viewCount);
+            document.getElementById('viewCount').textContent = viewCount;
+        });
     </script>
 </body>
 </html>
