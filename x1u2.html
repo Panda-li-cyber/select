@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x1u2</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<script>
+const words = {
+Austrian: "奥地利的，奥地利人的",
+    composer: "作曲家，作曲者",
+    symphony: "交响乐，交响曲",
+    concerto: "协奏曲",
+    Polish: "波兰的，波兰人的，波兰语的",
+    compose: "作曲；组成；撰写；使镇静",
+    deserve: "值得，应得",
+    tear_apart: "使(关系密切的人)分离，分开",
+    pleasant: "令人愉快的，可喜的；友好的，和善的",
+    whisper: "耳语，低语；私下说；沙沙作响",
+    dramatic: "激动人心的，引人注目的；突然的；戏剧的；夸张的",
+    weep: "哭泣，流泪",
+    overcome: "受到…的极大影响，克服，解决；战胜",
+    sorrow: "悲伤，悲痛；伤心事",
+    grave: "坟墓；死亡，去世；严重的；严肃的",
+    transform: "变形，改观，转化",
+    forever: "永远；长久地；老是",
+    combine: "融合；结合，混合；兼做；合并",
+    rely_on: "依赖，依靠；信任",
+    blues: "布鲁斯音乐，蓝调；忧郁，悲伤",
+    folk: "民间的、民俗的；民间音乐；人们；家人",
+    tune: "曲调，曲子；调音；调频道；调整",
+    lyric: "歌词，抒情诗；抒情的，吟唱的",
+    throw_in: "奉送，额外赠送",
+    for_good_measure: "作为额外增添",
+    rural: "乡村的，农村的",
+    surroundings: "周围，环境",
+    heaven: "极乐之地",
+    breeze: "微风，和风",
+    guarantee: "保证，担保；确保；为(产品)提供保修",
+    jazz: "爵士乐",
+    arch: "拱门；拱",
+    adaptation: "改编本，改写本；适应",
+    communist: "共产主义的；共产主义者",
+    invader: "武装入侵的军队(或国家)，侵略者",
+    consist_of: "由…组成(或构成)",
+    defend: "保护，防御；辩白，辩解",
+    solo: "独奏，独唱；独自的；独唱的，独奏的",
+    flow: "流，流动；充满；涨起",
+    spacecraft: "航天(飞行)器，宇宙飞船",
+    solar: "太阳的，太阳能的",
+    greet: "问候，欢迎，招呼",
+    get_down_to: "开始做某事，开始认真注意(或对待)某事",
+    suitable: "合适的，适宜的，适当的，适用的",
+    recording: "录音，视频；录制；记录，记载",
+    distant: "遥远的，远处的，久远的；冷淡的；远亲的",
+    volume: "音量，响度；体积，容积，容量；量，额",
+    stare: "盯着看，凝视，注视",
+    breath: "呼吸的空气；一次吸入的空气；微量，迹象",
+    unusual: "特别的，不寻常的；独特的，与众不同的",
+    grab: "吸引；抓住；赶紧，抓紧",
+    sweep: "席卷，横扫；打扫；吹走；清除",
+    disc: "唱片；光碟，光盘；圆盘，圆片",
+    complicated: "复杂的，难懂的",
+    lane: "小路；小巷；车道；跑道；航线",
+    accompany: "陪同，陪伴；伴随，与…同时发生；为…伴奏",
+    expectation: "希望，盼望；预料，预期；期望，指望",
+    remarkable: "非凡的，奇异的，显著的，引人注目的",
+    stream: "小溪；(人)流，(车)流",
+    enthusiastic: "热情的，热心的",
+    handkerchief: "手帕，纸巾",
+    vast: "大量的，辽阔的，巨大的",
+    gifted: "有才华的，有天赋的",
+    reputation: "名誉，名声",
+    brilliant: "聪颖的，技艺高的；巧妙的，很成功的，明亮的",
+    prediction: "预言，预测",
+    extraordinary: "不寻常的，非凡的；意想不到的，令人惊奇的",
+    depress: "使抑郁，使沮丧；使萧条，使不景气",
+    upset: "难过的，失望的",
+    possess: "具有(特质)；拥有；支配，控制",
+    abandon: "中止，放弃，不再有；抛弃，舍弃",
+    all_of_a_sudden: "突然，猛地",
+    orchestra: "管弦乐队",
+    desperate: "绝望的；不惜冒险的，极其需要的；极严重的",
+    uplifting: "令人振奋的，鼓舞人心的",
+    ease: "容易，轻易；舒适，安逸",
+    genius: "天赋，天资；天才",
+    variation: "变奏，变奏曲；变化，变更；变体，变种",
+    chorus: "合唱曲；副歌；合唱团",
+    grand: "宏大的，宏伟的；壮丽的，堂皇的",
+    finale: "末乐章，终场，结局；结尾",
+    rhythm: "节奏，韵律，律动；规律"
+    // 单词和中文翻译如前所示...
+};
+
+function generateQuestion() {
+    const keys = Object.keys(words);
+    const questionIndex = Math.floor(Math.random() * keys.length);
+    const questionWord = keys[questionIndex];
+    const correctAnswer = words[questionWord];
+    let options = [];
+    for (let i = 0; i < 3; i++) {
+        let optionIndex;
+        do {
+            optionIndex = Math.floor(Math.random() * keys.length);
+        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
+        options.push(words[keys[optionIndex]]);
+    }
+    options.push(correctAnswer);
+    options.sort(() => Math.random() - 0.5);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+            generateQuestion();
+        }, 1000);
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+        }, 1000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x1u2</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

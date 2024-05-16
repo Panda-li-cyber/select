@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试b3u1</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<script>
+const words = {
+harm: "伤害，损害",
+    soil: "土壤；国土，领土，土地",
+    ecosystem: "生态系统",
+    overseas: "海外的，国外的",
+    region: "地区，区域；行政区",
+    continent: "大陆，陆地；洲",
+    million: "一百万；许多，大量",
+    length: "长，长度；时间的长短；篇幅，（电影）片长",
+    biodiversity: "生物多样性",
+    species: "种，物种",
+    nut: "坚果",
+    brazil_nut: "巴西坚果",
+    lily: "百合（花）",
+    water_lily: "睡莲",
+    variety: "不同种类；变化，多样性；变种，变体",
+    wildlife: "野生动植物，野生生物",
+    beneath: "在…下面，在…下方；配不上",
+    mass: "大量；团，块，堆；一大群",
+    towering: "高大的，高耸的；出色的",
+    hardwood: "阔叶树；硬材（阔叶树的木材）",
+    living: "活着的，活的；在使用的",
+    mammal: "哺乳动物",
+    jaguar: "美洲豹，美洲虎",
+    survive: "生存，存活",
+    frog: "蛙，青蛙",
+    in_turn: "相应地，转而",
+    insect: "昆虫",
+    microorganism: "微生物",
+    break_down: "使分解（为），使变化（成）",
+    nutrient: "营养素，营养物",
+    breathe_life_into: "给…带来起色，注入活力",
+    carbon: "碳",
+    oxygen: "氧，氧气",
+    thus: "因此，从而；这样",
+    disappear: "不复存在，灭绝，消亡；消失；失踪",
+    due_to: "由于，因为",
+    agriculture: "农业，农学",
+    cattle: "牛",
+    impact: "影响，作用；撞击，冲撞",
+    extinction: "灭绝，绝种",
+    damage: "损害，伤害，损坏，破坏",
+    climate: "气候；倾向，风气",
+    build_up: "逐渐增加，扩大",
+    global: "全球的；全面的",
+    greenhouse: "温室，暖房",
+    gas: "气体；煤气；汽油",
+    drought: "旱灾，久旱",
+    come_up_with: "想出，想到",
+    call_for: "（公开）要求；需要",
+    application: "应用，运用；申请",
+    brochure: "小册子",
+    organization: "组织，团体；组织工作；安排；条理",
+    absolutely: "绝对地，完全地；极其",
+    belt: "地带，地区；腰带；传送带",
+    medal: "奖章，勋章",
+    image: "形象；图像；意象",
+    shark: "鲨鱼",
+    spring_to_mind: "突然记起（或想到）",
+    whale: "鲸",
+    deer: "鹿",
+    track: "跟踪，追踪；足迹，踪迹；小道；轨道；跑道；路线",
+    habitat: "生活环境，栖息地",
+    nowhere: "无处，哪里都不",
+    dolphin: "海豚",
+    resident: "居民，住户",
+    chief: "首领，最高领导人",
+    committee: "委员会",
+    entirely: "完全地，全部地，完整地",
+    smog: "雾霾，烟雾",
+    get_rid_of: "摆脱，丢弃，扔掉",
+    protest: "反对，抗议；坚持声称，申辩",
+    profit: "利润，收益；好处",
+    defence: "辩护；防御，保护；防御物；国防；防守",
+    various: "各种不同的，各种各样的",
+    process: "过程，进程；步骤，流程",
+    economic: "经济的，经济上的；可赚钱的",
+    policy: "政策，方针；原则",
+    branch: "（政府或机构）部门；分部；树枝；支流；分支",
+    strategy: "策略，行动计划；策划，部署",
+    recycle: "回收利用，再利用",
+    subway: "地铁；地下人行道",
+    former: "昔日的，前任的；以前的，从前的",
+    official: "官员，要员；公务的；正式的，官方的",
+    poverty: "贫穷，贫困；贫乏",
+    poison: "污染；毒死，毒害；毒物，毒药",
+    chemical: "化学制品；化学的；化学作用的",
+    consequence: "结果，后果；重要性",
+    give_rise_to: "使发生（或存在）",
+    further: "更多的，更进一步的"
+    // 单词和中文翻译如前所示...
+};
+
+function generateQuestion() {
+    const keys = Object.keys(words);
+    const questionIndex = Math.floor(Math.random() * keys.length);
+    const questionWord = keys[questionIndex];
+    const correctAnswer = words[questionWord];
+    let options = [];
+    for (let i = 0; i < 3; i++) {
+        let optionIndex;
+        do {
+            optionIndex = Math.floor(Math.random() * keys.length);
+        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
+        options.push(words[keys[optionIndex]]);
+    }
+    options.push(correctAnswer);
+    options.sort(() => Math.random() - 0.5);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+            generateQuestion();
+        }, 1000);
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+        }, 1000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试b3u1</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

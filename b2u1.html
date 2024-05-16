@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试b2u1</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<script>
+const words = {
+type: "类型，种类",
+    comedy: "喜剧，喜剧片",
+    documentary: "纪实节目，纪录片",
+    fantasy: "幻想，想象",
+    horror: "震惊，恐惧",
+    romance: "浪漫史，爱情关系",
+    fiction: "小说；虚构的事",
+    science_fiction: "科幻小说",
+    behind_the_scenes: "在幕后",
+    actually: "实际上",
+    brief: "短暂的；简短的",
+    familiar: "熟悉的；常见的",
+    factor: "因素，要素",
+    dinosaur: "恐龙",
+    roar: "吼叫，咆哮",
+    sheet: "床单，纸张",
+    envelope: "信封",
+    attach: "系上，贴上",
+    visual: "视觉的",
+    frequently: "经常地",
+    studio: "录音室，播音室",
+    enable: "使能够",
+    aid: "帮助；援助",
+    prefer: "更喜爱",
+    creative: "创造的，创造性的",
+    approach: "方法；靠近",
+    angle: "角；角度",
+    prop: "支柱，道具",
+    revise: "修改；修订",
+    historian: "历史学家",
+    ensure: "确保",
+    Atlantic: "大西洋",
+    ocean: "海洋",
+    not_to_mention: "更不必说",
+    lecture: "讲座，讲课",
+    justice: "公平，正义",
+    do_justice_to: "公平对待",
+    iceberg: "冰山",
+    dragon: "龙",
+    award: "奖，奖品",
+    audience: "观众",
+    perform: "演出；执行",
+    location: "地点",
+    martial_art: "武术",
+    desert: "沙漠",
+    jungle: "丛林",
+    title: "名称，标题",
+    adapt: "适应；改编",
+    regard: "认为；注视",
+    classic: "典型的；经典的",
+    super: "极好的；超级的",
+    solution: "解决办法",
+    onto: "朝；向",
+    system: "系统",
+    cure: "治愈",
+    eventually: "最终",
+    typical: "典型的",
+    fancy: "喜欢；奢华的",
+    narrow: "狭窄的",
+    recommend: "建议；推荐",
+    personality: "个性，性格",
+    despite: "尽管",
+    major: "重大的；主修",
+    event: "事件",
+    pull_up: "停车",
+    wave: "挥手；海浪",
+    recollect: "回忆",
+    recall: "记起",
+    angel: "天使",
+    dandy: "花花公子；上等的",
+    crooked: "弯曲的",
+    arrow: "箭",
+    pea: "豌豆"
+    // 单词和中文翻译如前所示...
+};
+
+function generateQuestion() {
+    const keys = Object.keys(words);
+    const questionIndex = Math.floor(Math.random() * keys.length);
+    const questionWord = keys[questionIndex];
+    const correctAnswer = words[questionWord];
+    let options = [];
+    for (let i = 0; i < 3; i++) {
+        let optionIndex;
+        do {
+            optionIndex = Math.floor(Math.random() * keys.length);
+        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
+        options.push(words[keys[optionIndex]]);
+    }
+    options.push(correctAnswer);
+    options.sort(() => Math.random() - 0.5);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+            generateQuestion();
+        }, 1000);
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+        }, 1000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x4u4</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content:center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+ font-family: Arial-Black, sans-serif;
+        font-size: 36px;
+font-color:blue
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 300px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
+    }
+</style>
+<script>
+const words = {
+ "auditory": "听的，听觉的",
+    "verbal": "口头的；言语的，文字的",
+    "blank": "空白的；空白处，空格",
+    "composition": "构图；构成，成分；作品；作曲艺术",
+    "educator": "教育家；教育工作者",
+    "Confucius": "孔子",
+    "bound": "一定会，很可能会；有义务(做某事)",
+    "keep pace with": "与…步调一致，与…并驾齐驱",
+    "resolve": "解决；决心，坚定的信念",
+    "refresh": "使变新；使恢复精力；使想起",
+    "objective": "客观的；目标，目的",
+    "criticize": "批评，批判，挑剔，指责；评价",
+    "inquire": "询问，打听",
+    "register": "登记，注册；登记表",
+    "subscribe": "订阅；定期订购；同意，赞成",
+    "concrete": "确实的，具体的；混凝土",
+    "comprehension": "理解力，领悟能力；理解练习",
+    "cease": "停止，终止，结束",
+    "self-worth": "自我价值感",
+    "inductive": "归纳的，归纳法的",
+    "reasoning": "推理，理性的观点，论证",
+    "abstract": "抽象的，纯理论的；抽象出",
+    "swan": "天鹅",
+    "assumption": "假定，假设",
+    "domain": "领域，范围；领土；域",
+    "vocational": "职业的，业务知识的",
+    "occupation": "工作，职业；消遣；使用",
+    "qualify": "使合格；取得资格",
+    "prospect": "成功的机会，前景；可能性",
+    "motor": "机动车的；发动机，马达",
+    "institution": "机构；风俗习惯，制度",
+    "drill": "培训，训练；练习，训练",
+    "circuit": "电路，线路；环行；赛车道",
+    "competence": "能力，胜任",
+    "recreation": "娱乐，消遣",
+    "lamp": "灯",
+    "random": "随机的；辨认不出的；不合常理的",
+    "statistic": "统计数字，统计资料",
+    "tablet": "平板电脑；药片",
+    "certificate": "文凭，结业证书；证明，证明书",
+    "breast": "胸部，胸脯",
+    "curtain": "幕，帷幕；窗帘；帘，幔；覆盖物",
+    "in a flash": "转瞬间，立即",
+    "tight": "紧紧地；牢固的，严格的",
+    "mature": "明白事理的，成矿的；成熟",
+    "compose oneself": "使自己镇定下来",
+    "dormitory": "学生宿舍，集体宿舍",
+    "circus": "热闹场面；马戏团",
+    "essay": "文章，短文",
+    "geometry": "几何（学）；几何形状",
+    "paragraph": "段，段落",
+    "laptop": "笔记本电脑，便携式电脑",
+    "dizzy": "头晕目眩的；使人眩晕的",
+    "sneeze": "打喷嚏；喷嚏，喷嚏声",
+    "reference": "参考；查阅，参考",
+    "draft": "草稿；起草",
+    "polish": "修改，润饰；抛光",
+    "drawer": "抽屉",
+    "presentation": "幻灯片演示；提交，授予；展示会",
+    "cafeteria": "自助餐厅，自助食堂",
+    "bounce": "试探地透露；跳动；弹跳",
+    "bounce ideas off sb": "向某人试探地透露主意",
+    "professor": "教授；讲师，教员",
+    "beard": "胡须，络腮胡子",
+    "intimidating": "吓人的，令人胆怯的",
+    "carriage": "客车厢；四轮马车",
+    "kettle": "壶，水壶",
+    "librarian": "图书管理员，图书馆馆长",
+    "forehead": "额，前额",
+    "extension": "扩大，延伸；进修部，进修课"
+// 这是你刚才要加的例子
+    // Your words dictionary here
+};
+
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
+function generateQuestion() {
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
+    const correctAnswer = words[questionWord];
+    let options = [];
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
+    options.push(correctAnswer);
+    shuffle(options);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        correctCount++;
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+    }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x4u4</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

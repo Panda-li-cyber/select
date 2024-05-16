@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x1u3</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<script>
+const words = {
+"portrait": "肖像，半身画像；详细的描述，描绘",
+    "landscape": "乡村风景画；风景，景色",
+    "wander": "闲逛，漫步；走失；走神；蜿蜒曲折",
+    "gallery": "展览馆，画廊；长廊，走廊；楼上旁听席",
+    "decade": "十年，十年期",
+    "mostly": "主要地，一般地",
+    "pond": "池塘，水池",
+    "canvas": "画布，油画；帆布",
+    "neighbourhood": "街区，城区；邻近的地方",
+    "strike": "突然想到；撞，碰；打，突击，罢工",
+    "setting": "环境，背景；情节背景",
+    "like-minded": "想法相同的，志趣相投的",
+    "liberation": "解放，摆脱",
+    "opposed": "截然不同的；强烈反对的",
+    "as opposed to": "(表示对比)面，相对于",
+    "dominate": "在…中具有最重爱(或明显)的特色，支配，控制；占有优势；俯视",
+    "employ": "运用，使用；雇用",
+    "brushwork": "(画家的)笔触，画法",
+    "realistic": "现实的，逼真的",
+    "essence": "本质，精髓；香精，精油",
+    "vivid": "鲜明的，耀眼的；生动的",
+    "vision": "远见卓识；视力，视野；想象",
+    "display": "陈列，展出；显示，表现",
+    "worthy": "值得(或应得)…的；值得尊敬的，值得注意的",
+    "calling": "职业，事业；使命感",
+    "shade": "阴影部分；色度；阴凉处",
+    "bathe": "以(光线)洒满，覆盖，使沐浴(在光线里)；用水清洗",
+    "pixel": "像素",
+    "wage": "开始，发动；(通常指按周领的)工资，工钱",
+    "campaign": "(宣传)活动，运动；战役",
+    "architecture": "建筑设计，建筑风格；建筑学",
+    "toast": "吐司，烤面包片；干杯，祝酒",
+    "garlic": "蒜，大蒜",
+    "mushroom": "蘑菇",
+    "arrange": "整理，布置；安排，筹备",
+    "raw": "未经加工的，自然状态的；生的，未烹制的",
+    "scroll": "长卷纸，卷轴",
+    "insight": "洞悉，了解；洞察力，领悟",
+    "crop": "庄稼，作物；收成，产量",
+    "wind": "蜿蜒，迂回；上发条；缠绕",
+    "sail": "(乘船)航行；起航；驾驶(船只)；飘，掠",
+    "civilian": "平民，老百姓，庶民",
+    "all walks of life": "各行各业，社会各界",
+    "butcher": "肉贩，屠夫",
+    "go about sth": "忙于做某事，继续做某事",
+    "apparent": "显而易见，明白易懂，显然",
+    "ink": "墨水，墨汁",
+    "perspective": "透视法；态度，观点；客观判断力；景观，远景",
+    "precise": "细致的，精细的；准确的，精确的；恰好的",
+    "ambitious": "宏大的，艰巨的；有野心的，有雄心的",
+    "enormous": "巨大的，庞大的",
+    "comprehensive": "全面的，详尽的；综合性的",
+    "clothing": "衣服，服装",
+    "temple": "庙宇，寺院",
+    "structure": "建筑物；结构，构造，精心组织",
+    "overall": "全面的，综合的；全部，总计；一般来说，大体上",
+    "critic": "批评家，评论家；批评者，挑剔的人",
+    "inspection": "检查，查看，审视；视察",
+    "expose": "揭露，揭穿；暴露，显露；使遭受；使接触",
+    "political": "政治的，政府的，政权的；政党的，党派的",
+    "soldier": "军人，士兵",
+    "crisis": "危机；转折点",
+    "decline": "衰退，衰落，减少，下降",
+    "overthrow": "推翻，打倒",
+    "be down to": "由…引起(或造成)",
+    "scale": "规模，范围；等级，级别；标度；比例",
+    "emperor": "皇帝",
+    "in one’s own right": "凭自身的资格(或努力)",
+    "outstanding": "优秀的，杰出的；突出的，明显的",
+    "exhibition": "展览，展出",
+    "rare": "稀少的，罕见的；稀罕的，珍贵的",
+    "speak volumes about": "充分说明，清楚表明",
+    "historic": "历史上著名的；有史时期的",
+    "career": "经历，事业；生涯，职业"
+    // 单词和中文翻译如前所示...
+};
+
+function generateQuestion() {
+    const keys = Object.keys(words);
+    const questionIndex = Math.floor(Math.random() * keys.length);
+    const questionWord = keys[questionIndex];
+    const correctAnswer = words[questionWord];
+    let options = [];
+    for (let i = 0; i < 3; i++) {
+        let optionIndex;
+        do {
+            optionIndex = Math.floor(Math.random() * keys.length);
+        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
+        options.push(words[keys[optionIndex]]);
+    }
+    options.push(correctAnswer);
+    options.sort(() => Math.random() - 0.5);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+            generateQuestion();
+        }, 1000);
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+        }, 1000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x1u3</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

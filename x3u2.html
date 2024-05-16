@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x3u2</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
+    }
+</style>
+<script>
+const words = {
+"astronaut": "n. 宇航员，航天员",
+"gravity": "n. 重力；严重性；严肃",
+"absence": "n. 缺乏，不存在；缺席",
+"float": "vi. 飘动，漂流；vt. 使浮动，使漂流",
+"cupboard": "n. 壁橱；橱柜，衣柜",
+"ceiling": "n. 天花板；上限",
+"bother": "vt. 使烦恼，使担心；打扰；vi. 花费时间精力；n. 麻烦，困难",
+"occupy": "vt. 占用，使用；居住；占领，侵占；使忙于",
+"mission": "n. 任务；使命，天职；军事行动；太空飞行任务",
+"evaluate": "vt. 评估，估计，评价",
+"creature": "n. 动物，生物；人",
+"mosquito": "n. 蚊子",
+"microscope": "n. 显微镜",
+"maintenance": "n. 维护，保养；维持，保持",
+"circumstance": "n. 条件，状况；境况，经济状况",
+"in the circumstances": "在这种情况下，既然如此",
+"exposure": "n. 面临，遭受；揭露；报道",
+"radiation": "n. 辐射，放射线",
+"visible": "adj. 看得见的；明显的",
+"in view of": "鉴于，考虑到",
+"luxury": "n. 乐趣；奢侈品",
+"tube": "n. 管，管子；软管",
+"furthermore": "adv. 此外，再者",
+"pill": "n. 药丸，药片",
+"vital": "adj. 必不可少的；维持生命所必需的",
+"discipline": "vt. 严格要求；惩罚；训练；n. 训练，纪律；自制力",
+"leisure": "n. 闲暇，空闲",
+"crew": "n. 全体工作人员；全体乘务人员，全体船员；专业团队",
+"permanent": "adj. 永久的，永恒的",
+"altogether": "adv. 完全；总共；总之",
+"kit": "n. 成套设备，成套工具；配套元件",
+"telescope": "n. 望远镜",
+"universe": "n. 宇宙，天地万物",
+"crucial": "adj. 至关重要的，关键性的",
+"orbit": "vt. & vi. 围绕…运动，沿轨道运行；n. 轨道",
+"astronomer": "n. 天文学家",
+"merely": "adv. 仅仅，只不过",
+"administration": "n. 行政部门；管理，行政",
+"agency": "n. 机构；代理处",
+"comprise": "vt. 包括，包含；组成，构成",
+"scan": "vt. & vi. 扫描；细看；浏览；n. 扫描检查；快速查阅",
+"plain to see": "显而易见的",
+"foundation": "n. 基础，根据；地基；创办；基金会",
+"lay the foundation for": "为…打下基础",
+"purse": "n. 资金，财源；钱包",
+"tale": "n. 故事；讲述，叙述",
+"origin": "n. 起源，起因；出身",
+"shuttle": "n. 航天飞机；航班；vi. 频繁往来",
+"frequency": "n. 发生率，出现率；频繁；频率",
+"hydrogen": "n. 氢，氢气",
+"rocket": "n. 火箭；火箭武器",
+"motive": "n. 原因，动机，目的",
+"investment": "n. 投资；投入",
+"calculate": "vt. 计算，核算；预测",
+"coverage": "n. 新闻报道；覆盖范围；信息范围",
+"mechanic": "n. 机械师，技工",
+"assistant": "n. 助理；售货员；助教；adj. 助理的，副的",
+"incredibly": "adv. 极其，极端地；令人难以置信",
+"dust": "n. 沙土，尘土；灰尘，尘埃",
+"shelter": "n. 居所，住处；庇护；vt. 保护，掩蔽；vi. 躲避",
+"constant": "adj. 固定的，不变的；连续发生的；n. 连续的",
+"nuclear": "adj. 核能的，原子能的；核武器的"
+// 这是你刚才要加的例子
+    // Your words dictionary here
+};
+
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
+function generateQuestion() {
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
+    const correctAnswer = words[questionWord];
+    let options = [];
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
+    options.push(correctAnswer);
+    shuffle(options);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        correctCount++;
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+    }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x3u2</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x4u2</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content:center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+ font-family: Arial-Black, sans-serif;
+        font-size: 36px;
+font-color:blue
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 300px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
+    }
+</style>
+<script>
+const words = {
+"react": "作出反应；有不良反应，过敏；起化学反应",
+    "gentle": "温柔的；温和的；柔和的",
+    "encode": "把···编码；把···译成电码（或密码）",
+    "mail": "电子邮件；邮政；邮件",
+    "decode": "解（码），破译（尤指密码）",
+    "feedback": "反馈的意见（或信息）",
+    "competent": "足以胜任的，有能力的，称职的",
+    "obtain": "获得，赢得",
+    "suit": "满足需要；相配，合身；套装，西装，西服",
+    "negotiate": "谈判；商定，达成（协议）",
+    "enterprise": "公司，企业；规划，事业",
+    "straightforward": "坦诚的；简单的",
+    "fold": "折叠，对折；包，裹；褶，褶层，折叠部分",
+    "friction": "争执；摩擦；摩擦力",
+    "clarify": "使更清晰易懂，阐明",
+    "knowledgeable": "博学的，有见识的",
+    "empathy": "同感，共鸣，同情",
+    "put yourself in sb's shoes": "处于某人的境地，设身处地",
+    "sympathy": "同情；赞同",
+    "account for": "是…的说明（或原因）；（数量上、比例上）占",
+    "empathize": "有同感，产生共鸣",
+    "approve": "赞成；批准，通过（计划、要求等）",
+    "approve of": "赞成，赞同",
+    "tone": "语气，腔调；风格，特色",
+    "gain": "获得；增进，增长；（从…中）受益；好处，利益",
+    "gesture": "手势，姿势；姿态，表示；做手势，用手势表示",
+    "precisely": "准确地，恰好地；细心地；正是，确实",
+    "vocabulary": "词汇，词汇量",
+    "preference": "偏爱；偏爱的事物",
+    "jam": "果酱；拥挤，堵塞",
+    "somewhat": "有点，有几分，稍微",
+    "taboo": "禁忌，忌讳；禁止，避讳",
+    "embarrassed": "窘迫的，尴尬的；拮据的",
+    "intention": "意图，计划",
+    "correspond": "类似于；相一致，符合；通信",
+    "behave": "表现得体，有礼貌；表现",
+    "tolerate": "容许，允许；忍受，容忍；能经受",
+    "kindergarten": "学前班；幼儿园",
+    "recite": "吟诵；列举",
+    "accent": "口音，腔调；重音；着重点，强调",
+    "handwriting": "手写，书写；笔迹，书法",
+    "fluent": "(尤指外语) 流利的，熟练的",
+    "cooperate": "合作，协作；协助，配合",
+    "cite": "提及，列举；引用，引述",
+    "broaden one's mind": "拓展视野，开阔眼界",
+    "tofu": "豆腐",
+    "bacon": "咸猪肉，熏猪肉",
+    "tank": "坦克；（贮放液体或气体的）罐",
+    "golf": "高尔夫球运动",
+    "integrate": "(使) 合并；(使)加入",
+    "bilingual": "会说两种语言的；用两种语言（写）的",
+    "kung fu": "功夫",
+    "oppose": "反对，抵制；与…对垒",
+    "intervention": "干涉行为，干预",
+    "pure": "纯净的；完全的",
+    "tribe": "部落",
+    "reject": "拒绝接受，不予考虑；不录用；排斥，排异",
+    "pessimistic": "悲观的，悲观主义的",
+    "Germanic": "日耳曼语的；德国的",
+    "linguist": "语言学家通晓数国语言的人",
+    "tendency": "趋势，趋向；倾向，偏好",
+    "skateboard": "滑板",
+    "canteen": "食堂，餐厅",
+    "sincerely": "真诚地，诚实地",
+    "slip": "滑倒；滑落；溜；陷入；差错；纸条；滑跤",
+    "fence": "栅栏，篱笆",
+    "contest": "比赛，竞赛；争夺，竞争；争取赢得；争辩，就…提出异议"
+// 这是你刚才要加的例子
+    // Your words dictionary here
+};
+
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
+function generateQuestion() {
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
+    const correctAnswer = words[questionWord];
+    let options = [];
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
+    options.push(correctAnswer);
+    shuffle(options);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        correctCount++;
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+    }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x4u2</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

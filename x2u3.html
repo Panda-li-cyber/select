@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x2u3</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<script>
+const words = {
+   "surgeon": "外科医生",
+    "physician": "医师，内科医生",
+    "chemist": "药剂师，药商；化学家",
+    "dentist": "牙科医生",
+    "specialize": "专门研究（或从事），专攻",
+    "gene": "基因",
+    "game-changing": "改变游戏规则的（指彻底改变事态发展的）",
+    "genome": "基因组，染色体组",
+    "cell": "细胞",
+    "being": "生物；存在；身心",
+    "lifespan": "寿命，有效期",
+    "affect": "影响；侵袭，使感染；深深打动",
+    "contract": "感染疾病；与…订立合同（或契约）；（使）收缩；合同，合约",
+    "virus": "病毒；（计算机程序中的）病毒",
+    "cancer": "癌症；邪恶，毒瘤",
+    "identify": "找到，发现；确认，认出；显示，说明身份",
+    "relate": "联系，使有联系；叙述，讲述",
+    "means": "方法，方式；财富，钱财",
+    "delete": "删去，删除",
+    "restore": "恢复；修复；使复原，使复位",
+    "ultimately": "最终；根本上",
+    "abnormal": "反常的，畸形的",
+    "weapon": "武器，手段；兵器",
+    "fundamental": "十分重大的，根本的；基础的，基本的；基本规律，根本法则，基础",
+    "pace": "发生的速度，节奏；步速；快节奏；来回踱步，走来走去；确定速度，调整节奏",
+    "arise": "发生，出现；（由…）引起，（因…）产生",
+    "restrict": "限制，限定；束缚，妨碍；约束，管束",
+    "prohibit": "（尤指以法令）禁止；使不可能",
+    "prohibit sb from doing sth": "禁止某人做某事",
+    "resistance": "抵抗力；抵制，反对；抵抗，反抗",
+    "flu": "流行性感冒，流感",
+    "characteristic": "特征，特点；典型的，独特的",
+    "wrestle": "奋力对付，努力处理；摔跤",
+    "wrestle with": "努力处理，全力解决",
+    "put sth in place": "准备就绪",
+    "debate": "讨论，辩论；仔细考虑，思考；讨论，争论；辩论",
+    "without doubt": "毫无疑问，的确",
+    "finding": "调查发现，调研结果",
+    "ripe": "成熟的；时机成熟的",
+    "a ripe old age": "高龄",
+    "withdraw": "脱离（社会），不与人交往；（使）撤离；（使）退出；停止提供",
+    "equip": "配备；使有能力",
+    "artificial": "人工的，人造的；人为的；虚假的",
+    "limb": "肢，臂，腿",
+    "rubber": "橡胶；橡皮",
+    "outgoing": "外向的",
+    "grateful": "感激的，表示感谢的",
+    "disabled": "有残疾的，丧失能力的",
+    "disability": "缺陷，障碍",
+    "conventional": "传统的，习惯的；依照惯例的，遵循习俗的",
+    "leather": "皮革",
+    "sensory": "感觉的，感官的",
+    "patent": "专利，专利证书；有专利的，受专利保护的",
+    "fuel": "增加，刺激；给…提供燃料；燃料",
+    "disturb": "使不安；打扰；搅乱",
+    "tackle": "应付，处理，解决",
+    "head-on": "积极地，果断地；正面相撞地；迎头相撞的；正面反对的",
+    "go to great lengths to do sth": "竭尽全力做某事，不遗余力做某事",
+    "adjust": "调整，调节；适应，习惯；整理",
+    "centimetre": "厘米",
+    "acupuncture": "针刺疗法",
+    "needle": "针；注射针；指针",
+    "evidence": "证据，证明；物证，人证；证明，表明",
+    "date back to": "追溯到，始于，自…至今",
+    "solid": "实心的；固体的；结实的；纯色的",
+    "switch": "转变；交换；调班；开关，闸；转变，改变",
+    "stainless": "不生锈的",
+    "steel": "钢；钢铁工业",
+    "millimetre": "毫米",
+    "clinic": "私人诊所；门诊部；门诊时间",
+    "examine": "检查，检验；审查，调查；考，测试；审问",
+    "tongue": "舌头；语言",
+    "pulse": "脉搏；搏动，跳动；洋溢着",
+    "wrist": "手腕，腕关节",
+    "organ": "器官；风琴；机构，机关",
+    "severe": "十分严重的，极为恶劣的；严厉的；艰难的",
+    "anxiety": "焦虑；担心；渴望",
+    "abuse": "滥用；虐待；辱骂；滥用；虐待；辱骤",
+    "alcohol": "酒精，酒",
+    "drug": "毒品；药物",
+    "tobacco": "烟草",
+    "phenomenon": "现象",
+    "substance": "物质；要点",
+    "symbol": "象征；符号，代号",
+    "widespread": "分布广的，普遍的，广泛的",
+    "bandage": "绷带",
+    "infection": "传染，感染"
+    // 单词和中文翻译如前所示...
+};
+
+function generateQuestion() {
+    const keys = Object.keys(words);
+    const questionIndex = Math.floor(Math.random() * keys.length);
+    const questionWord = keys[questionIndex];
+    const correctAnswer = words[questionWord];
+    let options = [];
+    for (let i = 0; i < 3; i++) {
+        let optionIndex;
+        do {
+            optionIndex = Math.floor(Math.random() * keys.length);
+        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
+        options.push(words[keys[optionIndex]]);
+    }
+    options.push(correctAnswer);
+    options.sort(() => Math.random() - 0.5);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+            generateQuestion();
+        }, 1000);
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+        }, 1000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x2u3</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

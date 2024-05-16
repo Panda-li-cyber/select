@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试b2u3</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<script>
+const words = {
+wedding: "婚礼，结婚庆典",
+    ceremony: "典礼，仪式",
+    decorate: "装饰；点缀；粉刷，油漆",
+    formal: "（穿着、言语、行为等）适合正式场合的，正规的，庄重的",
+    tradition: "传统，传统的信仰（或风俗）",
+    bride: "新娘",
+    eyecatching: "惹人注意的，引人注目的",
+    sari: "莎丽（南亚妇女裹在身上的长巾）",
+    custom: "风俗，习俗；个人习惯；光顾；海关",
+    impression: "印象，感想；影响，效果",
+    bridegroom: "新郎",
+    entrance: "进入，出场；入口；进入权；准许加入",
+    anything_but: "决不，根本不",
+    ordinary: "普通的，平常的；平庸的",
+    romantic: "浪漫的；爱情的；浪漫主义的",
+    flight: "班机，航班；航程；飞行",
+    occasion: "特殊场合，盛会；时刻；时机",
+    in_the_air: "可感觉到；在传播中",
+    merry: "愉快的，高兴的",
+    band: "乐队，乐团；一伙，一帮；带，箍",
+    costume: "戏装，装扮用服装",
+    samba: "桑巴舞；桑巴舞曲",
+    twist: "扭转，转动；使弯曲；曲折",
+    clap: "鼓掌，拍手",
+    march: "齐步走，前进；游行示威",
+    current: "水流，潮流；电流；思潮; 当前的；通用的",
+    beer: "啤酒",
+    roast: "烘，烤，焙（肉等）",
+    be_caught_up_in: "被卷入，陷入",
+    annual: "每年的，年度的；一年的",
+    engine: "发动机，引擎",
+    fire_engine: "消防车",
+    stuff: "东西，物品；活儿，话",
+    vehicle: "交通工具，车辆；手段，工具",
+    earn: "赚得；获利；赢得",
+    mirror: "镜子",
+    apartment: "公寓套房",
+    hunt: "寻找，搜寻；打猎，猎杀；追捕",
+    chain: "链子，链条；一系列；连锁店",
+    pass_down: "使世代相传，流传",
+    income: "收入，收益",
+    per: "每，每一",
+    comb: "梳子；梳理（头发）",
+    package: "包，盒；包裹；一套，一揽子",
+    promote: "促进，推动；促销；提升，晋升",
+    fall_on: "适逢，正当",
+    lunar: "月亮的，月球的",
+    observe: "遵守；注意到；观察；庆祝",
+    nation: "民族，国家；国民",
+    honour: "尊敬，尊重；荣幸；荣誉",
+    in_honour_of: "为向…表示敬意",
+    dragon: "龙",
+    generation: "一代人；代，一代；产生",
+    source: "来源；起源；源头",
+    identity: "特性；身份",
+    previous: "先前的，以往的；稍前的",
+    duty: "责任，义务；上班，值班；职责；税",
+    precious: "宝贵的，珍贵的；珍奇的，珍稀的",
+    eve: "前夜，前夕",
+    china: "瓷；瓷器",
+    plate: "盘子，碟子；板块；车牌",
+    sort: "种类，类别",
+    pork: "猪肉",
+    bite: "（咬下的）一口；咬；咬伤",
+    select: "选择，挑选",
+    settle: "定居；结束，解决；决定；使处于舒适的位置",
+    convenient: "方便的，省事的，便利的，实用的",
+    neat: "整洁的，整齐的；有条理的",
+    couplet: "对联，对句",
+    represent: "代表；为…代言；体现",
+    midnight: "午夜，子夜",
+    snack: "点心，小吃",
+    set_off: "使爆炸",
+    firecracker: "鞭炮，爆竹",
+    firework: "烟火，烟花",
+    fortune: "机会，运气；巨款；命运",
+    lantern: "灯笼；提灯",
+    riddle: "谜，谜语",
+    willow: "柳，柳树",
+    creep: "渐渐出现",
+    tear: "眼泪，泪珠",
+    sleeve: "袖子"
+    // 单词和中文翻译如前所示...
+};
+
+function generateQuestion() {
+    const keys = Object.keys(words);
+    const questionIndex = Math.floor(Math.random() * keys.length);
+    const questionWord = keys[questionIndex];
+    const correctAnswer = words[questionWord];
+    let options = [];
+    for (let i = 0; i < 3; i++) {
+        let optionIndex;
+        do {
+            optionIndex = Math.floor(Math.random() * keys.length);
+        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
+        options.push(words[keys[optionIndex]]);
+    }
+    options.push(correctAnswer);
+    options.sort(() => Math.random() - 0.5);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+            generateQuestion();
+        }, 1000);
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+        }, 1000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试b2u3</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

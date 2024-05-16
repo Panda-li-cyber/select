@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x1u1</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<script>
+const words = {
+mood: "情绪，心情，气氛，氛围",
+    combination: "结合体，联合体，联合，混合",
+    do_the_trick: "奏效，起作用，达到目的",
+    creamy: "含奶油的；像奶油的，光滑细腻的；淡黄色的",
+    flavour: "味，味道；特点，特色",
+    greedily: "贪婪地，贪心地",
+    gently: "轻柔地，温和地",
+    dessert: "甜点，甜食",
+    association: "联想，联系；协会，社团；联合，交往",
+    vary: "变化，变更；相异，不同",
+    link: "联系，相关联；把…连接起来",
+    emotion: "情感，强烈的感情，激情，情绪",
+    saucer: "碟状物，茶碟，茶托",
+    vinegar: "醋",
+    native: "出生于某国(或某地)的人；本地人",
+    salty: "成的，含盐的",
+    sour: "酸的，有酸味的；馊的",
+    cry_out_for: "迫切需要",
+    relieve: "解除，减轻；缓和，缓解",
+    bond: "纽带，联系；连接，结合",
+    security: "安全；保护措施；保安部门；担保，保证",
+    generate: "产生，引起",
+    calorie: "卡，卡路里；千卡",
+    digest: "消化；理解，吸收信息",
+    lower: "降低，减少；把…放低，使…降下",
+    cycle: "循环；自行车，摩托车",
+    enhance: "提高，增强",
+    throw_oneself_into: "投身于，热衷于",
+    boil: "用沸水煮；(使)沸腾",
+    fry: "油炸，油煎",
+    steak: "牛排；肉排，肉块",
+    pan: "平锅，平底锅",
+    impress: "使钦佩，给…留下深刻印象，使意识到",
+    buffet: "自助餐",
+    bay: "湾",
+    scenery: "风景，景色；舞台布景",
+    bet: "打赌，赌注；预计，估计",
+    atmosphere: "气氛，氛围；大气；气体；空气",
+    out_of_this_world: "好得不得了，非凡，呱呱叫",
+    version: "变体，变种；说法；版本",
+    filling: "馅",
+    elderly: "年纪较大的，上了年纪的",
+    bake: "烘烤；烤硬",
+    flour: "面粉",
+    adorable: "可爱的，讨人喜爱的",
+    mild: "不浓的，淡味的；暖和的；温和的，不严重的",
+    tiramisu: "提拉米苏",
+    bakery: "面包(糕饼)店",
+    layer: "层，层次，表层",
+    cheese: "干酪，奶酪",
+    bitter: "味苦的；激烈的；令人难过的；严寒的",
+    cream: "奶油，乳脂；护肤霜",
+    ingredient: "材料，成分；因素，要素",
+    loose: "不受约束的；未固定牢的；零散的；宽松的；疏松的",
+    let_sth_loose: "释放；放任",
+    chilli: "辣椒",
+    pepper: "甜椒；胡椒粉",
+    Sichuan_pepper: "花椒",
+    onion: "洋葱，葱头",
+    spring_onion: "小葱，香葱",
+    damp: "潮湿的，湿气重的",
+    foggy: "有雾的，雾茫茫的",
+    dynasty: "朝，代；王朝",
+    expand: "增加，扩大；扩展，发展(业务)；详谈，详述",
+    multiple: "数量多的，多样的",
+    sauce: "调味汁，酱",
+    plain: "朴素的，简单的；清楚的",
+    slice: "薄片，片；部分，份额",
+    chef: "主厨，厨师",
+    property: "性质，特性；所有物，财产；不动产",
+    appropriate: "合适的",
+    estimate: "估计，估价",
+    consume: "吃，喝，饮；消耗，耗费(尤指燃料、能量或时间)",
+    hit_the_spot: "使人满意，正合需要",
+    Cantonese: "广东人(或文化)的，粤语的",
+    dim_sum: "点心",
+    essential: "必不可少的；本质的，基本的",
+    innovation: "创造，创新；新思想，新方法",
+    concept: "概念，观念",
+    stimulate: "促进，激发；刺激，使兴奋",
+    appetite: "食欲，胃口；强烈欲望",
+    delicate: "精致的，精细的，精密的；易损的，易碎的，脆弱的",
+    emphasis: "强调；重视",
+    steam: "蒸，散发蒸汽",
+    gram: "克",
+    cabbage: "甘蓝，卷心菜",
+    wrapper: "包装材料，包装纸",
+    mixture: "混合物；混合，结合",
+    edge: "边，边缘；刀口",
+    apart: "成碎片；分开；相隔",
+    fall_apart: "破碎，破裂；崩溃"
+    // 单词和中文翻译如前所示...
+};
+
+function generateQuestion() {
+    const keys = Object.keys(words);
+    const questionIndex = Math.floor(Math.random() * keys.length);
+    const questionWord = keys[questionIndex];
+    const correctAnswer = words[questionWord];
+    let options = [];
+    for (let i = 0; i < 3; i++) {
+        let optionIndex;
+        do {
+            optionIndex = Math.floor(Math.random() * keys.length);
+        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
+        options.push(words[keys[optionIndex]]);
+    }
+    options.push(correctAnswer);
+    options.sort(() => Math.random() - 0.5);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+            generateQuestion();
+        }, 1000);
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+        }, 1000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x1u1</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x2u1</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<script>
+const words = {
+ "critical": "批评的，批判性的；关键的；危急的",
+    "trap": "使落入险境；卡住，绊住；陷阱，罗网；圈套；困境，牢笼",
+    "release": "发布；释放；松开；发泄；释放；发行；排放，泄漏",
+    "ambulance": "救护车",
+    "extend": "延伸（距离）；扩大；延长；伸展",
+    "construction": "建筑，建造；建造物",
+    "dozen": "许多；（一）打；十来个",
+    "dozens of": "很多，许多",
+    "minor": "轻微的，次要的",
+    "bath": "洗澡，洗浴；浴缸，浴盆",
+    "scream": "尖叫；高声喊；发出大而尖的声音；尖叫，尖锐刺耳的声音",
+    "bark": "（狗）吠叫；厉声发令；（狗）吠声；短促响亮的人声；树皮",
+    "choke": "（使）窒息；（使）哽咽，（尤指感情激动而）说不出话来",
+    "department": "部门，局，系",
+    "cigarette": "香烟",
+    "carpet": "地毯；覆盖地面的一层厚东西",
+    "automatic": "自动的；无意识的，不假思索的",
+    "investigate": "侦查，调查；研究",
+    "come about": "发生",
+    "journalist": "新闻记者，新闻工作者",
+    "priority": "优先事项，首要事情；优先权，重点",
+    "contradict": "相矛盾，相反；反驳，驳斥",
+    "factual": "事实的，真实的",
+    "instance": "例子，事例",
+    "for instance": "例如，比如",
+    "differ": "相异；意见相左",
+    "conclusion": "结论，推论；结束，结果；签订，达成",
+    "FALSE": "错误的，不真实的；非天生的；假的，伪造的；不真诚的",
+    "bring sth to light": "揭露，披露",
+    "minimum": "最小值，最少量；最低的，最小的",
+    "maximum": "最大量，最大限度；最高的，最多的",
+    "sum": "总结，概括；金额，款项；总和，总数；全部",
+    "sum up": "总结，概括",
+    "accurate": "正确无误的；精确的",
+    "committed": "尽心尽力的；承诺过的",
+    "be committed to": "致力于；承诺过",
+    "discrimination": "辨别力，识别力；歧视，区别对待",
+    "curiosity": "好奇心，求知欲；奇物，珍品",
+    "journalism": "新闻业，新闻工作",
+    "commitment": "献身，投入；承诺，许诺；花费",
+    "citizen": "公民；市民，居民",
+    "found": "创建，创办；建立，兴建",
+    "politics": "政治，政治事务；（个人的）政治观点，政见",
+    "accuse": "谴责，控诉",
+    "tax": "税收",
+    "mount": "逐步增加；攀登，爬上；山",
+    "mount up": "（尺寸和数量上）增加，上升",
+    "elevation": "提高；提升；海拔",
+    "profession": "行业，职业；同行；宣称，声明",
+    "drama": "戏剧；戏剧性事件",
+    "scholarship": "奖学金；学术",
+    "category": "类别，种类",
+    "nevertheless": "尽管如此",
+    "witness": "是发生…的时间（或地点），见证；目击；作证；是…的迹象；目击者，见证人；证人",
+    "edition": "版本；一份，一期；版次",
+    "platform": "平台；站台，月台；讲台，舞台",
+    "spring up": "迅速出现，突然兴起",
+    "interaction": "互动；互相作用",
+    "membership": "（统称）会员，会员人数；会员资格",
+    "chart": "图表；海图；（the charts）排行榜",
+    "broadcast": "广播节目，电视节目；播送，广播；散布，传播",
+    "advertising": "广告活动，广告业",
+    "persuasion": "说服，劝说；信仰",
+    "persuade": "说服；使信服",
+    "advertisement": "广告，启事；广告活动，广告宣传",
+    "channel": "途径，渠道；电视台；频道；方法；水渠",
+    "peak": "高峰时期的，最高度的；顶峰，高峰；山峰；尖端；达到高峰，达到最高值",
+    "advertise": "做广告，登广告；公布，征聘；展现，宣传",
+    "boost": "使增长，使兴旺；增长，提高；帮助，激励",
+    "psychology": "心理，心理特征；心理学",
+    "purchase": "买，购买；购买，采购；购买的东西，购买项目",
+    "memorable": "难忘的，值得纪念的",
+    "slogan": "标语，口号",
+    "teapot": "茶壶",
+    "get across": "被传达，被理解，把…讲清楚",
+    "brand": "品牌；类型；烙印",
+    "ambassador": "大使，代表",
+    "placement": "放置；安置",
+    "rating": "收视率；等级，级别",
+    "sponsor": "赞助；主办；为慈善活动捐款；资助；赞助商；为慈善活动捐款的人",
+    "absorb": "理解，掌握；吸收；吸引全部注意力",
+    "discount": "折扣；打折出售",
+    "tailor": "专门制作，定做；裁缝",
+    "brighten up": "（使）增添乐趣；（使）明亮",
+    "housing": "住房，住宅",
+    "estate": "住宅区；（通常指农村的）大片私有土地；个人财产，（尤指）遗产",
+    "housing estate": "住宅区，住宅群",
+    "amuse": "（提供）消遣；逗笑"
+    // 单词和中文翻译如前所示...
+};
+
+function generateQuestion() {
+    const keys = Object.keys(words);
+    const questionIndex = Math.floor(Math.random() * keys.length);
+    const questionWord = keys[questionIndex];
+    const correctAnswer = words[questionWord];
+    let options = [];
+    for (let i = 0; i < 3; i++) {
+        let optionIndex;
+        do {
+            optionIndex = Math.floor(Math.random() * keys.length);
+        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
+        options.push(words[keys[optionIndex]]);
+    }
+    options.push(correctAnswer);
+    options.sort(() => Math.random() - 0.5);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+            generateQuestion();
+        }, 1000);
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+        }, 1000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x2u1</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

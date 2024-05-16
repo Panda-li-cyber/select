@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试b3u2</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<script>
+const words = {
+county: "郡，县",
+    injure: "伤害，使受伤；损害",
+    disaster: "灾难，灾害；彻底失败",
+    at_large: "整个，全部",
+    reaction: "反应，回应；抗拒；化学反应",
+    crash: "碰撞声，破裂声；碰撞；崩溃",
+    signal: "发信号，示意；标志；信号，暗号；标志；信号灯",
+    exit: "出去，离去，退场；退出；出口，通道；离开",
+    orderly: "有秩序的，有条理的，整齐的",
+    stair: "楼梯；梯级",
+    roll: "名单；卷；一管；翻滚",
+    roll_call: "点名",
+    confirm: "证实，确认；使确信；批准",
+    safe_and_sound: "安然无恙的",
+    hug: "拥抱，搂抱；抱紧",
+    procedure: "程序，步骤，手续",
+    tsunami: "海啸",
+    odd: "奇怪的，怪异的；偶尔的；不成对的",
+    bubble: "泡沫，泡，气泡",
+    occur: "发生，出现；存在于",
+    occur_to: "被想到，浮现在脑中",
+    keep_one_s_head: "（在困境中）保持冷静",
+    relief: "宽慰，轻松；减轻，消除；救济",
+    typhoon: "台风",
+    destructive: "引起破坏（或毁灭）的，破坏（或毁灭性）的",
+    pole: "柱，杆；极",
+    inform: "了解，熟悉；通知",
+    hurricane: "飓风",
+    conference: "会议，研讨会；讨论，商谈",
+    shock: "震惊，惊愕；剧烈震动",
+    scare: "惊吓，害怕",
+    power: "电，电力；权力；政权；控制力；能力；能量；力量",
+    run_out_of: "用完，耗尽",
+    supply: "补给，补给品；供应；供应量，储备",
+    donate: "捐赠，赠送；献（血）",
+    charity: "慈善机构（组织）；慈善，施舍；仁爱，宽容",
+    staff: "全体职工；管理人员",
+    slide: "投影片；降低；滑行；山崩",
+    fund: "资金；基金",
+    flood: "洪水，水灾；大量",
+    downstairs: "在楼下，往楼下",
+    document: "文件，公文；（计算机中的）文档",
+    honey: "（爱称）亲爱的；蜂蜜",
+    otherwise: "否则，不然；除此以外",
+    curious: "好奇的；奇特的",
+    Roman: "古罗马的；罗马的",
+    erupt: "（火山）爆发；突然发生",
+    unearth: "使出土，挖掘，发掘；发现，找到",
+    destination: "目的地，终点",
+    bar: "酒吧；小馆子；吧台；条，块；栏杆；障碍",
+    import: "进口产品，输入的产品；输入",
+    export: "出口产品，输出的产品；出口，输出",
+    port: "港口，避风港；港口城市",
+    cloud_capped: "高耸入云的，耸入云霄的",
+    ashy: "覆盖着灰的；灰色的",
+    dawn: "黎明，破晓；开端，萌芽",
+    volcano: "火山",
+    take_the_form_of: "呈现…的形状；采取…的形式",
+    trunk: "树干",
+    unbearable: "难耐的，无法忍受的",
+    break_out: "突然开始，爆发",
+    beyond: "在（或向）较远处；在另一边；超出；晚于；无法；超出…之外",
+    distance: "遥远，久远；距离；差异；疏远",
+    far_and_wide: "到处，各处",
+    pattern: "图案，花样；模式；范例；模型",
+    column: "柱，圆柱；柱状物；栏；专栏；队，列",
+    rescue: "救援，营救，抢救",
+    sharp: "灵敏的；锋利的；急剧的；明显的；尖锐的；强烈的",
+    locate: "找出…的准确位置；把…安置在（或建造于）",
+    retire: "退休，退役"
+    // 单词和中文翻译如前所示...
+};
+
+function generateQuestion() {
+    const keys = Object.keys(words);
+    const questionIndex = Math.floor(Math.random() * keys.length);
+    const questionWord = keys[questionIndex];
+    const correctAnswer = words[questionWord];
+    let options = [];
+    for (let i = 0; i < 3; i++) {
+        let optionIndex;
+        do {
+            optionIndex = Math.floor(Math.random() * keys.length);
+        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
+        options.push(words[keys[optionIndex]]);
+    }
+    options.push(correctAnswer);
+    options.sort(() => Math.random() - 0.5);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+            generateQuestion();
+        }, 1000);
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+        }, 1000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试b3u2</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

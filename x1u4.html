@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x1u4</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<script>
+const words = {
+"barren": "贫瘠的，不毛的；不结果实的",
+    "frozen": "结冰的，冰封的；冷冻的；冻僵的",
+    "imply": "含有…的意思，暗示；暗指",
+    "dimension": "方面，侧面；规模，程度；堆",
+    "grasp": "理解，领会；抓紧，握紧，控制；能力所及",
+    "detect": "发现，查明，侦察出",
+    "rhyme": "押韵词；押韵",
+    "complex": "复杂的，难懂的；建筑群；复合体；情结",
+    "contradictory": "相互矛盾的，对立的",
+    "dig up": "发现，搜集，查明",
+    "clue": "线索，提示；迹象",
+    "cage": "把(动物)关在笼中；笼子",
+    "trill": "(鸟的)啼啭，颤音",
+    "interpret": "解释，阐释；把…理解为，领会；演绎",
+    "patience": "耐心，忍耐力",
+    "aside": "到旁边，在旁边，留，存；除…以外",
+    "set sth aside": "把…放一边；留出",
+    "remote": "偏远的，偏僻的；遥远的，久远的；远亲的",
+    "reward": "奖励，奖赏；悬赏金",
+    "constantly": "始终，一直",
+    "logical": "符合逻辑的；必然的，合乎情理的",
+    "inner": "内心的，隐藏的；里面的，内部的",
+    "perceive": "注意到，意识到；将…理解为，将…视为",
+    "reality": "现实，实际情况；事实，实际经历",
+    "mist": "薄雾，水汽",
+    "novelist": "小说家",
+    "break with sth": "与某事终止关联，破除",
+    "ideal": "理想；典范；完美的，理想的",
+    "rigid": "死板的，僵硬的；固执的，僵化的",
+    "undergo": "(underwent，undergone)经历，经受",
+    "industrialization": "工业化",
+    "advocate": "拥护，支持，提倡",
+    "belief": "看法，信念；信仰；相信，信心",
+    "era": "时代，年代",
+    "district": "区，行政区；地区，区域",
+    "diverge": "分叉，岔开；分歧，相异；偏离",
+    "bend": "(bent，bent)(使)拐弯，弯曲",
+    "claim": "声明，宣称，所有权；索赔",
+    "tread": "(trod，trodden)踩，踏；踩碎，践踏，行走，步行",
+    "sigh": "叹气，叹息",
+    "hence": "因此，由此",
+    "dare": "敢于，胆敢；激(某人做某事)",
+    "dweller": "居民，居住者",
+    "striking": "引人注目的，显著的；妩媚动人的，标致的",
+    "characterize": "是…的特征，以…为典型；使…具有特点，描述，刻画",
+    "Confucianism": "儒家，儒学，孔子学说",
+    "Taoism": "道教",
+    "legend": "传说，传奇故事，传奇人物",
+    "encounter": "偶然碰到，意外地遇见；遭遇，碰到",
+    "nourish": "培养，助长；抚养，滋养",
+    "numerous": "众多的，许多的",
+    "glorious": "荣耀的，光荣的；壮丽的，辉煌的",
+    "boom": "(贸易和经济活动的)激增，繁荣",
+    "stability": "稳定(性)，稳固(性)",
+    "tolerant": "宽容的，容忍的；能耐…的",
+    "liberty": "自由",
+    "unconstrained": "不受约束的，自由的",
+    "vitality": "生命力，活力，热情",
+    "distinguish": "成为…的特征，使有别于；区分，辨别；认出；使出众",
+    "exaggeration": "夸张，夸大",
+    "metaphor": "暗喻，隐喻",
+    "representative": "典型的，有代表性的；代表",
+    "frost": "霜；霜冻，严寒天气",
+    "cast": "投射；向…投以(视线、笑容等)；投，抛；选派角色",
+    "owe": "欠(情)；欠(债)",
+    "debt": "人情债，情义，恩情；借款，欠款，债务",
+    "fascinate": "深深吸引，迷住",
+    "entitle": "(usually passive)给…命名；使享有权利，使符合资格",
+    "blame": "把…归咎于，责怪，指责",
+    "allowance": "津贴，补助；限额；零花钱",
+    "make allowance for": "体谅；考虑到，估计到",
+    "triumph": "巨大成功，重大成就，伟大胜利",
+    "impostor": "冒名顶替者，冒名行骗者",
+    "unforgiving": "棘手的；不饶人的，不宽容的"
+    // 单词和中文翻译如前所示...
+};
+
+function generateQuestion() {
+    const keys = Object.keys(words);
+    const questionIndex = Math.floor(Math.random() * keys.length);
+    const questionWord = keys[questionIndex];
+    const correctAnswer = words[questionWord];
+    let options = [];
+    for (let i = 0; i < 3; i++) {
+        let optionIndex;
+        do {
+            optionIndex = Math.floor(Math.random() * keys.length);
+        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
+        options.push(words[keys[optionIndex]]);
+    }
+    options.push(correctAnswer);
+    options.sort(() => Math.random() - 0.5);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+            generateQuestion();
+        }, 1000);
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+        }, 1000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x1u4</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

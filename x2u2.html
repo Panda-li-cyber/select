@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x2u2</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<script>
+const words = {
+  "solidarity": "团结，齐心协力",
+    "BCE": "公元前",
+    "participate": "参加，参与",
+    "compete": "参加比赛；竞争",
+    "racial": "种族的；种族间的",
+    "diverse": "多种多样的，不同的",
+    "joint": "联合的，共同的；关节；接合处",
+    "motivate": "激励，激发；成为…的动机，是…的原因",
+    "motto": "格言，座右铭",
+    "boundary": "边界，分界线",
+    "demonstrate": "表现，表露；证实，证明；示范，演示；游行示威",
+    "afterwards": "以后，后来",
+    "proceed": "接着做，继而做；继续从事（或进行）；行进，前往",
+    "flame": "火焰，火舌",
+    "applaud": "称赞，赞许；鼓掌",
+    "track and field": "田径运动",
+    "consistent": "一致的，始终如一的；连续的",
+    "call on sb to do sth": "正式邀请某人做某事；请求某人做某事",
+    "humanity": "（统称）人，人类；人性；人道，仁慈",
+    "rank": "属于某等级，把…分等级；排列，使排成行；地位，级别；等级；排，列；军衔",
+    "trend": "趋势，趋向",
+    "hurdle": "跨栏赛；栏架；障碍",
+    "election": "选举，推选；当选",
+    "advent": "（重要事件、人物等的）到来，出现",
+    "faith": "信心；宗教信仰",
+    "ambition": "追求的目标，夙愿；野心，雄心，壮志",
+    "ascend": "上升，升高，登高",
+    "identical": "完全同样的",
+    "fellow": "同伴的，同情况的，同类的；同辈，同类；男人，家伙",
+    "relay": "接力赛；转发（信息、消息等）；播放，转播",
+    "chest": "胸部；大箱子",
+    "cheek": "面颊，脸颊",
+    "half-marathon": "半程马拉松赛跑",
+    "amateur": "业余运动员，业余爱好者；生手，外行；业余的",
+    "ankle": "踝，踝关节",
+    "gradually": "逐渐地，逐步地",
+    "session": "一段时间，一场；会议，开庭；学年",
+    "limit": "限度，限制；极限，限量；界限；限制，限定；限量，减量",
+    "marathon": "马拉松赛跑；马拉松式的活动（或工作）",
+    "chairman": "（委员会的）委员长，主席；（会议的）主席，主持人",
+    "constitution": "体质，身体素质；宪法，章程",
+    "pour": "倒，斟；倾倒，倒出；涌流，倾泻；下大雨",
+    "walk on air": "欢天喜地，得意扬扬",
+    "keep sth in perspective": "正确客观地看待",
+    "celebrity": "名人；名望",
+    "opponent": "对手，竞争者；反对者",
+    "humility": "谦逊，谦虚",
+    "grace": "高雅，文雅；优美；风度，体面",
+    "dignity": "尊严；自尊；高贵",
+    "bobsleigh": "大雪橇（供两人或两人以上比赛用）",
+    "unselfish": "无私的，忘我的",
+    "idiom": "习语，成语",
+    "find one’s way into": "偶然来到，无意中处于",
+    "league": "联赛；等级，级别",
+    "opposing": "对抗的；相反的",
+    "net": "球网；网，网状物",
+    "move the goalposts": "改变条件（或规则）",
+    "insurance": "保险业；保险；保险费",
+    "salesman": "售货员，推销员",
+    "complain": "抱怨，投诉",
+    "score an own goal": "进乌龙球；无意中做对自己不利的事",
+    "unintentionally": "无意地，非故意地",
+    "council": "政务委员会，地方议会；市政服务机构；委员会",
+    "backfire": "产生事与愿违的不良（或危险）后果",
+    "ball park": "棒球场；变动范围",
+    "in the ballpark": "差不多",
+    "a ball park estimate": "大致的估计",
+    "venue": "活动场地",
+    "curveball": "曲线球",
+    "throw sb a curve ball": "给某人出难题",
+    "handle": "处理，应付；控制，操纵；把手，拉手；柄",
+    "three strikes and you are out": "三振出局",
+    "fist": "拳，拳头",
+    "waist": "腰，腰部；（衣服的）腰部",
+    "below the belt": "不公正的，伤人的",
+    "cruel": "刻毒伤人的，残酷的",
+    "remark": "谈论，言论；说起，评论",
+    "towel": "毛巾，抹布，纸巾",
+    "throw in the towel": "认输，承认失败",
+    "literally": "真正地，确实地；按字面，字面上",
+    "iron": "铁；熨斗"
+    // 单词和中文翻译如前所示...
+};
+
+function generateQuestion() {
+    const keys = Object.keys(words);
+    const questionIndex = Math.floor(Math.random() * keys.length);
+    const questionWord = keys[questionIndex];
+    const correctAnswer = words[questionWord];
+    let options = [];
+    for (let i = 0; i < 3; i++) {
+        let optionIndex;
+        do {
+            optionIndex = Math.floor(Math.random() * keys.length);
+        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
+        options.push(words[keys[optionIndex]]);
+    }
+    options.push(correctAnswer);
+    options.sort(() => Math.random() - 0.5);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+            generateQuestion();
+        }, 1000);
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+        }, 1000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x2u2</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

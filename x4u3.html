@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x4u3</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content:center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+ font-family: Arial-Black, sans-serif;
+        font-size: 36px;
+font-color:blue
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 300px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
+    }
+</style>
+<script>
+const words = {
+"salary": "薪金，薪水",
+    "labour": "劳工，劳动；努力做",
+    "gear": "使适合于；排挡，齿轮",
+    "earn a living": "谋生",
+    "attain": "获得；达到",
+    "endeavour": "努力；尝试",
+    "passion": "酷爱；强烈情感",
+    "fond": "喜爱的",
+    "anticipate": "预料；预计",
+    "status quo": "现状；原来的状况",
+    "superior": "更好的；级别更高的人",
+    "prejudice": "偏见",
+    "lawyer": "律师",
+    "servant": "雇员；仆人",
+    "consultant": "顾问",
+    "clerk": "职员",
+    "receptionist": "接待员",
+    "respective": "分别的；各自的",
+    "zone": "地区",
+    "operate": "操作；运转",
+    "hire": "聘用；新雇员",
+    "leadership": "领导地位",
+    "weigh up": "权衡；斟酌",
+    "receipt": "收入；收据",
+    "commercial": "商业的",
+    "weekly": "每周的",
+    "monthly": "每月的",
+    "budget": "预算",
+    "loan": "贷款；借出",
+    "client": "客户",
+    "detective": "侦探",
+    "subjective": "主观的",
+    "directory": "名录",
+    "plug": "堵塞；插头",
+    "groundwork": "基础工作",
+    "premier": "最著名的；首相",
+    "institute": "机构；建立",
+    "proportion": "比例；体积",
+    "fabric": "织物",
+    "fibre": "纤维",
+    "qualification": "资格",
+    "swing": "改变；摆动",
+    "label": "标签；贴标签",
+    "candidate": "候选人",
+    "gain the upper hand": "处于有利地位",
+    "applicant": "申请人",
+    "prior": "在前的；优先的",
+    "profile": "概述；概述",
+    "criterion": "标准",
+    "concisely": "简明地",
+    "shave": "刮脸；剃须",
+    "refreshed": "恢复了精力的",
+    "mode": "方式",
+    "delay": "延迟",
+    "duration": "持续时间",
+    "rude": "粗鲁的",
+    "justify": "辩解；证明正确",
+    "relevant": "相关的",
+    "infer": "推断",
+    "convey": "表达；传送",
+    "firm": "坚定的；公司",
+    "genuine": "真诚的",
+    "yawn": "打哈欠",
+    "seize": "抓住",
+    "corporate": "公司的",
+    "rainbow": "彩虹",
+    "madam": "女士",
+    "temporary": "临时的",
+    "bowling": "保龄球运动",
+    "tournament": "锦标赛"
+// 这是你刚才要加的例子
+    // Your words dictionary here
+};
+
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
+function generateQuestion() {
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
+    const correctAnswer = words[questionWord];
+    let options = [];
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
+    options.push(correctAnswer);
+    shuffle(options);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        correctCount++;
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+    }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x4u3</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x4u1</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content:center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+ font-family: Arial-Black, sans-serif;
+        font-size: 36px;
+font-color:blue
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 300px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
+    }
+</style>
+<script>
+const words = {
+"barely": "刚好；仅仅；几乎不；刚才",
+    "cigar": "雪茄烟",
+    "appointment": "约定，约会；任命；职务",
+    "tear down": "拆毁，拆除",
+    "keen": "灵敏的；渴望；热切；热衷于",
+    "jaw": "下巴；颌",
+    "scar": "伤疤；创伤；污点",
+    "eyebrow": "眉毛",
+    "scarfpin": "围巾夹；领带别针",
+    "diamond": "钻石",
+    "make one's fortune": "发财",
+    "lose contact": "失去联系",
+    "reliable": "可信赖的；真实可信的",
+    "worthwhile": "值得的",
+    "collar": "衣领；颈圈；圈，箍",
+    "bless": "祝福",
+    "inch": "英寸；少量",
+    "arm in arm": "臂挽着臂",
+    "outline": "概述；轮廓线",
+    "suspect": "疑有；嫌疑犯",
+    "arrest": "逮捕",
+    "under arrest": "被逮捕",
+    "wire": "打电报；金属丝",
+    "criminal": "罪犯；犯法的",
+    "anyhow": "不管怎样",
+    "innocent": "无辜的；无辜者",
+    "legal": "合法的",
+    "principle": "道德原则；法则",
+    "decent": "正派的；适当的",
+    "burden": "负担",
+    "geophysicist": "地球物理学家",
+    "core": "核心的；核心",
+    "socialist": "社会主义的；社会主义者",
+    "resign": "辞职",
+    "ward": "病房",
+    "substantial": "大量的；结实的",
+    "mineral": "矿物",
+    "superb": "极佳的",
+    "photographer": "摄影师",
+    "guilty": "内疚的；有罪的",
+    "ashamed": "惭愧的",
+    "forgive": "原谅",
+    "cheat": "欺骗；作弊",
+    "wrap": "包；披肩",
+    "parcel": "包裹；打包",
+    "bow": "蝴蝶结；鞠躬",
+    "nephew": "侄子；外甥",
+    "disappointed": "失望的",
+    "wrinkle": "皱纹；起皱纹",
+    "pause": "停顿；停顿时间",
+    "sew": "缝",
+    "pretend": "假装",
+    "privilege": "特权；给予特权",
+    "embrace": "拥抱；欣然接受",
+    "phase": "阶段",
+    "anchor": "锚；抛锚",
+    "mercy": "仁慈",
+    "likewise": "同样地",
+    "deadline": "最后期限",
+    "guidance": "指导",
+    "fault": "过错",
+    "virtue": "美德",
+    "integrity": "诚实正直；完整",
+    "organic": "有机的；生物的",
+    "starfish": "海星",
+    "discouraged": "灰心的",
+    "garbage": "垃圾",
+    "saving": "节省；储蓄金",
+    "bonus": "奖金",
+    "jade": "玉",
+    "sow": "播种",
+    "harvest": "收成；收割",
+    "rejoice": "高兴；欣喜",
+    "quote": "引语；引用"
+// 这是你刚才要加的例子
+    // Your words dictionary here
+};
+
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
+function generateQuestion() {
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
+    const correctAnswer = words[questionWord];
+    let options = [];
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
+    options.push(correctAnswer);
+    shuffle(options);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        correctCount++;
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+    }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x4u1</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

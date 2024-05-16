@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x2u4</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<script>
+const words = {
+ "castle": "城堡",
+    "castles in the air": "空中楼阁，幻想",
+    "input": "输入的信息；投入",
+    "capacity": "领悟（或理解、办事）能力；容量，容积；职位，职责；生产量",
+    "analyse": "分析",
+    "massive": "巨大的，大而重的；非常严重的",
+    "network": "网络，网状系统；关系网，人际网；（互联）网络",
+    "coin": "创造（新词语）",
+    "break through": "重大进展，突破",
+    "finance": "财政，金融；资金；财力，财务管理",
+    "to name but a few": "等等",
+    "autonomous": "自主的，有自主权的；自治的",
+    "domestic": "家庭的，家用的；本国的，国内的",
+    "threaten": "危及，对…构成威胁；威胁，恐吓",
+    "commit": "犯（罪）；承诺，保证；花（钱或时间）",
+    "crime": "罪，罪行；犯罪活动",
+    "murder": "谋杀，凶杀",
+    "urge": "敦促，催促；大力推荐，竭力主张；驱赶，鞭策",
+    "pose": "造成，产生；提问，质询",
+    "apparently": "显然，可见",
+    "warning": "警告，先兆；警戒",
+    "demand": "需要；强烈要求",
+    "victim": "受害者，牺牲品；受骗者；祭品",
+    "fall victim to": "受伤，受损，被害",
+    "greedy": "贪心的，贪婪的",
+    "recognition": "识别，认出；承认，认可；赞誉，赏识",
+    "database": "数据库",
+    "alternative": "可供选择的事物",
+    "hacker": "黑客",
+    "theft": "偷窃，偷窃罪",
+    "break into": "强行闯入，撬开",
+    "fail-safe": "有自动保险装置的，具有自动防止故障性能的",
+    "drone": "无人驾驶飞机",
+    "distribution": "分发，分送；分配，分布",
+    "predict": "预言，预告",
+    "decrease": "减少，降低",
+    "deny": "否认，否定；拒绝承认，拒绝接受",
+    "quantity": "数量；大量",
+    "in large quantities": "大量，大批",
+    "airline": "航空公司",
+    "threat": "构成威胁的人（或事物）；威胁，恐吓；凶兆",
+    "spy": "从事间谍活动",
+    "spy on": "暗中监视，窥探",
+    "illegal": "不合法的，非法的",
+    "monitor": "监视，跟踪调查；监听",
+    "licence": "许可证，执照",
+    "stadium": "体育场，运动场",
+    "highlight": "最好（或最精彩）的部分",
+    "capsule": "小塑料容器；（装药的）胶囊；太空舱",
+    "bury": "埋藏；埋葬，安葬；覆盖；遮盖；使陷入",
+    "fountain": "喷泉，涌流；喷水池；源泉，丰富来源",
+    "fountain pen": "自来水笔",
+    "contemporary": "当代的，现代的；属同时期的，同一时代的",
+    "seed": "种子；起源，起因",
+    "wheat": "小麦，小麦粒",
+    "muscular": "肌肉的；强壮的",
+    "conclude": "断定，推断出；达成，订立；（使）结束，终止",
+    "justified": "合乎情理的，事出有因的；有正当理由的",
+    "superiority": "优越感；优越性，优势",
+    "virtual": "虚拟的，模拟的；很接近的，事实上的",
+    "at the forefront": "处于最前列，进入重要地位",
+    "definition": "定义；释义，解释",
+    "headset": "头戴式耳机",
+    "sensor": "传感器，敏感元件",
+    "practical": "实际的，真实的；切实可行的；有用的；实事求是的",
+    "a host of": "许多，大量",
+    "academic": "教学的，学术的；学习良好的；纯理论的",
+    "immersive": "沉浸式虚拟现实的",
+    "engage": "吸引住（注意力、兴趣）；雇用，聘用；与…建立密切关系",
+    "twin": "双胞胎之一；成对的，成双的",
+    "clone": "克隆，以无性繁殖技术复制",
+    "barrier": "障碍，阻力；屏障，障碍物；分界线，隔阂",
+    "boil down to": "归结为，基本问题是",
+    "fine-tune": "对…微调",
+    "initial": "最初的，开始的",
+    "optimistic": "乐观的，抱乐观看法的",
+    "annoy": "使恼怒，使生气；打扰，骚扰",
+    "weed": "杂草，野草",
+    "like weeds": "大量",
+    "state-of-the-art": "使用最先进技术（或方法）的，最先进的",
+    "globe": "球体，球状物；地球仪；地球，世界",
+    "satellite": "人造卫星；卫星",
+    "expense": "费用；开销；开支",
+    "at the expense of": "在牺牲（或损害）…的情况下",
+    "gender": "性别",
+    "envy": "羡慕，忌妒",
+    "pub": "酒吧，酒馆"
+    // 单词和中文翻译如前所示...
+};
+
+function generateQuestion() {
+    const keys = Object.keys(words);
+    const questionIndex = Math.floor(Math.random() * keys.length);
+    const questionWord = keys[questionIndex];
+    const correctAnswer = words[questionWord];
+    let options = [];
+    for (let i = 0; i < 3; i++) {
+        let optionIndex;
+        do {
+            optionIndex = Math.floor(Math.random() * keys.length);
+        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
+        options.push(words[keys[optionIndex]]);
+    }
+    options.push(correctAnswer);
+    options.sort(() => Math.random() - 0.5);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+            generateQuestion();
+        }, 1000);
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+        setTimeout(() => {
+            selectedButton.style.backgroundColor = 'white';
+        }, 1000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x2u4</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>

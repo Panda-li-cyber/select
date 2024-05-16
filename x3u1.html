@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词交互测试x3u1</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #content {
+        text-align: center;
+        width: 100%;
+    }
+    #word {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    .option {
+        margin: 5px;
+        padding: 10px;
+        border: 2px solid #007BFF;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 200px;
+        display: inline-block;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    #optionsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
+    }
+</style>
+<script>
+const words = {
+"blooming": "盛开的,开花的",
+    "unfold": "开花;展开,打开;展示，展现",
+    "ethnically": "种族地",
+    "distinct": "截然不同的,有区别的,不同种类的；清楚的，清晰的",
+    "territory": "地区;领土,领地；领域",
+    "valley": "山谷,溪谷",
+    "carve": "侵蚀,冲刷;雕,刻",
+    "glacier": "冰川",
+    "mighty": "巨大的,非凡的;强而有力的",
+    "splendid": "壮丽的,雄伟的;极佳的，非常好的",
+    "apart from": "除了…外(还),此外;除了…外(都)，要不是",
+    "urban": "城市的,城镇的",
+    "ancestor": "祖宗,祖先;原种",
+    "indigenous": "本地的,土生土长的",
+    "strait": "海峡,水道",
+    "minority": "少数民族,少数群体；少数，少数人",
+    "cuisine": "烹饪,风味;饭菜,菜肴",
+    "dynamic": "(事物)有活力的;动态的，发展变化的；充满活力的",
+    "sample": "尝,品尝,体验;抽样检验",
+    "off the beaten track": "不落俗套,打破常规;远离闹市，偏远",
+    "fiddle": "小提琴",
+    "Celtic": "凯尔特人的,凯尔特语的",
+    "come as no surprise": "不足为奇,毫不奇怪",
+    "depth": "最深处;深(度);深刻;深厚",
+    "suburb": "郊区,城外",
+    "botanical": "植物学的",
+    "Clovis": "克洛维斯的",
+    "blanket": "厚层;毛毯",
+    "hockey": "冰球运动,冰上曲棍球;曲棍球",
+    "niece": "侄女,外甥女",
+    "welfare": "幸福,福祉;福利",
+    "accommodation": "住处",
+    "surrounding": "周围的,附近的",
+    "harmony": "融洽,和睦;和谐",
+    "sustain": "使保持,使稳定持续;维持",
+    "manner": "方式,方法;举止;(manners)礼貌",
+    "consumption": "消耗,消耗量;消费",
+    "church": "教堂;礼拜",
+    "come down to": "可归结为,可归纳为",
+    "code": "行为规范,道德准则;法规,法典；密码",
+    "dress code": "着装规定",
+    "item": "一件商品(或物品);项目",
+    "elegant": "漂亮雅致的,精美的;优美的，文雅的",
+    "make one's way to": "去,前往",
+    "statue": "雕像,雕塑",
+    "souvenir": "纪念物,纪念品",
+    "antique": "文物,古董",
+    "vase": "花瓶,装饰瓶",
+    "furniture": "家具",
+    "dune": "沙丘",
+    "goat": "山羊",
+    "fragile": "脆弱的;易碎的",
+    "resolution": "决心,决定;决议;解决",
+    "grain": "细粒,颗粒;谷物",
+    "beat down": "(阳光)强烈照射,曝晒",
+    "contrast": "形成对比",
+    "ray": "光线,射线",
+    "camel": "骆驼",
+    "chew": "咀嚼,嚼碎;咬住",
+    "starve": "(使) 饿死,(使) 挨饿",
+    "barbecue": "烤架;户外烧烤",
+    "departure": "离开,起程",
+    "mud": "泥,淤泥",
+    "border": "国界,边界",
+    "parking": "停车;停车位",
+    "hut": "(简陋的)小屋,棚屋",
+    "brick": "砖块;积木",
+    "dot": "点",
+    "flap": "拍打,摆动;振(翅)",
+    "ham": "火腿,火腿肉",
+    "sausage": "香肠,腊肠",
+    "bunch": "串,束;大量",
+    "fetch": "(去)拿来,(去)请来",
+    "possession": "私人物品,个人财产;具有，拥有",
+    "intently": "热切地,专注地",
+    "hike": "远足,徒步旅行",
+    "awesome": "令人惊叹的,使人惊惧的；很好的",
+    "liquid": "液体的,液态的",
+    "Arctic": "北极的",
+    "fox": "狐狸;狡猾的人",
+    "polar": "极地的;完全相反的",
+    "delicacy": "佳肴;谨慎;敏感",
+    "lamb": "羊羔肉;羔羊",
+    "teacher": "老师"  // 这是你刚才要加的例子
+    // Your words dictionary here
+};
+
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
+function generateQuestion() {
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
+    const correctAnswer = words[questionWord];
+    let options = [];
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
+    options.push(correctAnswer);
+    shuffle(options);
+    document.getElementById('word').textContent = questionWord.replace('_', ' ');
+    document.getElementById('optionA').textContent = 'A: ' + options[0];
+    document.getElementById('optionB').textContent = 'B: ' + options[1];
+    document.getElementById('optionC').textContent = 'C: ' + options[2];
+    document.getElementById('optionD').textContent = 'D: ' + options[3];
+    document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
+}
+
+function checkAnswer(selected) {
+    const correct = document.getElementById('correct').value;
+    const selectedButton = document.querySelectorAll('.option')[selected];
+    if (selected === parseInt(correct)) {
+        selectedButton.style.backgroundColor = 'lightgreen';
+        document.getElementById('match').play();
+        correctCount++;
+    } else {
+        selectedButton.style.backgroundColor = 'lightcoral';
+        document.getElementById('unmatch').play();
+    }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
+}
+
+document.addEventListener('DOMContentLoaded', generateQuestion);
+</script>
+</head>
+<body>
+<div id="content">
+    <h1>单词交互测试x3u1</h1>
+    <p id="word"></p>
+    <div id="optionsContainer">
+        <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
+        <button id="optionB" class="option" onclick="checkAnswer(1)"></button>
+        <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
+        <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
+    </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
+    <input type="hidden" id="correct">
+</div>
+<audio id="match" src="match.wav"></audio>
+<audio id="unmatch" src="unmatch.wav"></audio>
+</body>
+</html>
