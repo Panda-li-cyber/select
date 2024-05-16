@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>译林高中英语单词选选看</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+           background-color: rgba(0, 128, 0, 0.4); /* 绿色蒙层，透明度95% */
+            backdrop-filter: blur(1px); /* 柔化度 */
+            -webkit-backdrop-filter: blur(1px); /* 针对Safari浏览器 */
+                    }
+        table {
+            margin: auto;
+            z-index: 10;
+            position: relative;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div style="position: relative; z-index: 10;">
+        <h1>译林高中英语单词选选看</h1>
+        <table>
+             <tr>
+            <td><a href="b1u1.html">b1u1</a></td>
+            <td><a href="b1u2.html">b1u2</a></td>
+            <td><a href="b1u3.html">b1u3</a></td>
+            <td><a href="b1u4.html">b1u4</a></td>
+        </tr>
+        <tr>
+            <td><a href="b2u1.html">b2u1</a></td>
+            <td><a href="b2u2.html">b2u2</a></td>
+            <td><a href="b2u3.html">b2u3</a></td>
+            <td><a href="b2u4.html">b2u4</a></td>
+        </tr>
+        <tr>
+            <td><a href="b3u1.html">b3u1</a></td>
+            <td><a href="b3u2.html">b3u2</a></td>
+            <td><a href="b3u3.html">b3u3</a></td>
+            <td><a href="b3u4.html">b3u4</a></td>
+        </tr>
+        <tr>
+            <td><a href="x1u1.html">x1u1</a></td>
+            <td><a href="x1u2.html">x1u2</a></td>
+            <td><a href="x1u3.html">x1u3</a></td>
+            <td><a href="x1u4.html">x1u4</a></td>
+        </tr>
+        <tr>
+            <td><a href="x2u1.html">x2u1</a></td>
+            <td><a href="x2u2.html">x2u2</a></td>
+            <td><a href="x2u3.html">x2u3</a></td>
+            <td><a href="x2u4.html">x2u4</a></td>
+        </tr>
+        <tr>
+            <td><a href="x3u1.html">x3u1</a></td>
+            <td><a href="x3u2.html">x3u2</a></td>
+            <td><a href="x3u3.html">x3u3</a></td>
+            <td><a href="x3u4.html">x3u4</a></td>
+        </tr>
+        <tr>
+            <td><a href="x4u1.html">x4u1</a></td>
+            <td><a href="x4u2.html">x4u2</a></td>
+            <td><a href="x4u3.html">x4u3</a></td>
+            <td><a href="x4u4.html">x4u4</a></td>
+        </tr>
+        </table>
+        <p>湖南省临武县第一中学融合课题组</p>
+        <p>微信号公众号：熊猫李English工作室李国保</p>
+        <p>网页浏览<span id="viewCount"></span>次</p>
+    </div>
+    <script>
+        // 这里的代码仅用于展示，实际的计数功能需要服务器支持
+        let viewCount = localStorage.getItem('viewCount') || 0;
+        viewCount++;
+        localStorage.setItem('viewCount', viewCount);
+        document.getElementById('viewCount').textContent = viewCount;
+
+    </script>
+</body>
+</html>
