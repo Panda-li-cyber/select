@@ -9,15 +9,25 @@
             margin: 0;
             font-family: Arial, sans-serif;
             text-align: center;
-            background-image: url('background.jpg');
-            background-size: cover;
-            background-attachment: fixed;
+            background-color: #006400; /* 深绿色 */
+            color: white; /* 白色文字 */
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 100, 0, 0.8); /* 深绿色，带透明度 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         table {
             margin: auto;
+            background-color: #006400; /* 深绿色 */
             z-index: 10;
             position: relative;
-            background-color: #006400; /* 深绿色 */
         }
         td {
             border: 1px solid black;
@@ -31,15 +41,32 @@
         a:hover {
             text-decoration: underline;
         }
+        .content {
+            position: relative;
+            z-index: 10;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #006400; /* 深绿色 */
+            padding: 10px;
+            color: white; /* 白色文字 */
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <div style="position: relative; z-index: 10;">
+    <div class="content">
         <h1>译林高中英语单词选选看</h1>
         <div>
             <input type="text" id="regCodeInput" placeholder="请输入注册码">
             <button onclick="validateCode()">提交</button>
         </div>
+        <p>湖南省临武县第一中学融合课题组</p>
+        <p>微信号公众号：熊猫李English工作室李国保</p>
+    </div>
+    <div class="overlay">
         <table id="wordTable">
             <tr>
                 <td><a href="b1u1.html" class="link">b1u1</a></td>
@@ -84,13 +111,34 @@
                 <td><a href="x4u4.html" class="link">x4u4</a></td>
             </tr>
         </table>
-        <p>湖南省临武县第一中学融合课题组</p>
-        <p>微信号公众号：熊猫李English工作室李国保</p>
-        <p>网页浏览<span id="viewCount"></span>次</p>
+    </div>
+    <div class="footer">
+        网页浏览<span id="viewCount"></span>次
     </div>
     <script>
-        // 测试注册码
-        const validCodes = ['ABC123', 'DEF456', 'GHI789'];
+        const validCodes = [
+            'S1IE3F', 'KQMZP2', 'EOD098', '0RYFI5', 'YSPERH', 'P7W5B4', 'J2M94G', '1RP9TB', '6KMG5W', 'U1E3YX', 
+            'FFUH1B', 'GRV43G', '9L87VT', 'S1ONVS', 'RXHYFT', 'WD02YU', 'VQES3J', 'SPH2BE', 'Q5NWMB', 'HF9BM2', 
+            'ANVLCM', 'HYDHKS', 'LGTL6W', 'UFN4V0', 'E2YF0C', 'K9EO3F', '5X2KCH', 'YWNM8V', 'E3Y6LS', 'BKDYL9', 
+            '7PGYTD', '5ASBOW', 'JWB8ZX', 'COZBHR', 'O1KCXE', '00CHMR', 'TLFLQ3', 'MUL7GZ', 'FQCUZG', 'LE9BH3', 
+            '475ZBL', 'D67CAW', '1Z0EF7', 'EV5VGJ', 'K32UDO', 'LJKPRQ', '311GPM', 'RNZR5D', '9JMSK9', 'ERROVF', 
+            'OW8LVM', '4ZQFY1', 'F0HVZE', 'L2EQKD', 'U21NRL', 'WVWVYF', 'AOUAQE', '4X28L5', 'T2WXVZ', 'BKBPTR', 
+            'UPBY5E', '5UKSMW', '5UOH6Q', 'BBGVBS', 'VG8DJJ', 'VFHS2Q', 'U17ER1', 'XXEHNP', 'RCB58A', 'DM9TZO', 
+            'PFV1VO', 'GEQJJ0', '1987Z9', 'FPFBVJ', 'ZNBLKR', 'SQYQ8W', 'CDQZHH', 'HC9SEJ', 'JVJDXF', 'BNAPSI', 
+            '8RXHI5', '7YK856', 'QBLSX5', '3XOP63', 'A5IM4I', 'HOGK0Y', 'CRD6ZW', '2R60ZC', 'HHRYYA', 'W1PNO1', 
+            'AJF6ZS', 'JH9OEA', 'CXLMQK', 'QIKTSL', 'QIHPR3', 'H8NWSF', 'EAI442', 'MR3GVL', 'CP4RCC', '576X5Y',
+            // Add the rest 800 codes here
+            'S1IE3F', 'KQMZP2', 'EOD098', '0RYFI5', 'YSPERH', 'P7W5B4', 'J2M94G', '1RP9TB', '6KMG5W', 'U1E3YX', 
+            'FFUH1B', 'GRV43G', '9L87VT', 'S1ONVS', 'RXHYFT', 'WD02YU', 'VQES3J', 'SPH2BE', 'Q5NWMB', 'HF9BM2', 
+            'ANVLCM', 'HYDHKS', 'LGTL6W', 'UFN4V0', 'E2YF0C', 'K9EO3F', '5X2KCH', 'YWNM8V', 'E3Y6LS', 'BKDYL9', 
+            '7PGYTD', '5ASBOW', 'JWB8ZX', 'COZBHR', 'O1KCXE', '00CHMR', 'TLFLQ3', 'MUL7GZ', 'FQCUZG', 'LE9BH3', 
+            '475ZBL', 'D67CAW', '1Z0EF7', 'EV5VGJ', 'K32UDO', 'LJKPRQ', '311GPM', 'RNZR5D', '9JMSK9', 'ERROVF', 
+            'OW8LVM', '4ZQFY1', 'F0HVZE', 'L2EQKD', 'U21NRL', 'WVWVYF', 'AOUAQE', '4X28L5', 'T2WXVZ', 'BKBPTR', 
+            'UPBY5E', '5UKSMW', '5UOH6Q', 'BBGVBS', 'VG8DJJ', 'VFHS2Q', 'U17ER1', 'XXEHNP', 'RCB58A', 'DM9TZO', 
+            'PFV1VO', 'GEQJJ0', '1987Z9', 'FPFBVJ', 'ZNBLKR', 'SQYQ8W', 'CDQZHH', 'HC9SEJ', 'JVJDXF', 'BNAPSI', 
+            '8RXHI5', '7YK856', 'QBLSX5', '3XOP63', 'A5IM4I', 'HOGK0Y', 'CRD6ZW', '2R60ZC', 'HHRYYA', 'W1PNO1', 
+            'AJF6ZS', 'JH9OEA', 'CXLMQK', 'QIKTSL', 'QIHPR3', 'H8NWSF', 'EAI442', 'MR3GVL', 'CP4RCC', '576X5Y'
+        ];
 
         // 验证注册码函数
         function validateCode() {
