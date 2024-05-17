@@ -12,14 +12,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content:center;
     }
     #content {
         text-align: center;
         width: 100%;
     }
     #word {
-        font-size: 24px;
+ font-family: Arial-Black, sans-serif;
+        font-size: 36px;
+font-color:blue
         margin-top: 20px;
     }
     .option {
@@ -31,7 +33,7 @@
         background-color: white;
         font-size: 16px;
         cursor: pointer;
-        width: 200px;
+        width: 300px;
         display: inline-block;
     }
     .option:hover {
@@ -42,95 +44,125 @@
         flex-direction: column;
         align-items: center;
     }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
+    }
 </style>
 <script>
 const words = {
-devote: "致力，专心，献身",
-    earnest: "非常认真的；诚实的，真诚的",
-    butterfly: "蝴蝶",
-    literature: "文学，文学作品",
-    shell: "贝壳；壳",
-    in_store: "即将发生(在某人身上)，等待着(某人)",
-    appeal: "有吸引力；申诉；呼吁",
-    determine: "确定；支配；决心",
-    significant: "有重要意义的，显著的",
-    description: "描述，形容，说明",
-    sensitive: "感觉敏锐的；体贴的；敏感的；灵敏的",
-    soul: "灵魂；心性，内心",
-    reflect: "反映，显示；映出(影像)；反射(声，光、热等)；沉思",
-    capable: "有能力，有才能；能力强的",
-    awaken: "唤起，被唤起；(使)醒来",
-    launch: "使(船)下水；开始从事，发动",
-    permanence: "永久，持久性",
-    contain: "包含，含有，容纳",
-    element: "要素，基本部分",
-    universal: "普遍的，共同的；普遍存在的",
-    summary: "总结，概括，概要",
-    in_summary: "总的来说",
-    feature: "特色，特征",
-    author: "作者，作家",
-    therefore: "因此，所以",
-    issue: "重要议题，争论的问题；问题，担忧",
-    novel: "(长篇)小说",
-    draw_on: "凭借，利用",
-    upper: "上部的；上面的",
-    gap: "差距；间隙",
-    context: "(事情发生的)背景，环境，来龙去脉；上下文，语境",
-    specific: "特定的；明确的，具体的",
-    ought_to: "应该，应当",
-    particular: "特别的，格外的；特指的；挑剔的",
-    in_particular: "尤其，特别",
-    topic: "话题；题目；标题",
-    collection: "(同类)收藏品；作品集；募捐",
-    section: "部分，部门；部件，散件",
-    mean: "吝啬的，小气的；不善良的，刻薄的",
-    transport: "运输，运送",
-    turkey: "火鸡；火鸡肉",
-    generosity: "慷慨，大方，宽宏大量",
-    chapter: "章节；篇章",
-    poetry: "诗集，诗歌",
-    stage: "舞台；阶段；步骤",
-    autobiography: "自传",
-    biography: "传记，传记作品",
-    extremely: "极其，非常，极端",
-    destroy: "摧毁，毁灭，破坏",
-    defeat: "击败，战胜",
-    attempt: "努力，尝试，试图",
-    straighten: "挺直；(使)变直，变正",
-    strain: "用劲，使力；压力，拉力；重负",
-    alongside: "在…旁边；与…一起",
-    accomplish: "完成",
-    noble: "贵族的，高贵的；崇高的；宏伟的",
-    confused: "糊涂的，迷惑的；不清楚的，混乱的",
-    clear_up: "(头脑)清醒；使整洁，清理；天气放晴",
-    be_on_the_point_of_doing_sth: "正要做某事",
-    weave: "迂回行进，穿行; 编",
-    mushy: "糊状的，软而稠的",
-    flash: "闪光，闪现"
-    // 单词和中文翻译如前所示...
+ "devote": "致力，专心，献身",
+    "earnest": "非常认真的；诚实的，真诚的",
+    "butterfly": "蝴蝶",
+    "literature": "文学，文学作品",
+    "shell": "贝壳；壳",
+    "in_store": "即将发生(在某人身上)，等待着(某人)",
+    "appeal": "有吸引力；申诉；呼吁",
+    "determine": "确定；支配；决心",
+    "significant": "有重要意义的，显著的",
+    "description": "描述，形容，说明",
+    "sensitive": "感觉敏锐的；体贴的；敏感的；灵敏的",
+    "soul": "灵魂；心性，内心",
+    "reflect": "反映，显示；映出(影像)；反射(声，光、热等)；沉思",
+    "capable": "有能力，有才能；能力强的",
+    "awaken": "唤起，被唤起；(使)醒来",
+    "launch": "使(船)下水；开始从事，发动",
+    "permanence": "永久，持久性",
+    "contain": "包含，含有，容纳",
+    "element": "要素，基本部分",
+    "universal": "普遍的，共同的；普遍存在的",
+    "summary": "总结，概括，概要",
+    "in_summary": "总的来说",
+    "feature": "特色，特征",
+    "author": "作者，作家",
+    "therefore": "因此，所以",
+    "issue": "重要议题，争论的问题；问题，担忧",
+    "novel": "(长篇)小说",
+    "draw_on": "凭借，利用",
+    "upper": "上部的；上面的",
+    "gap": "差距；间隙",
+    "context": "(事情发生的)背景，环境，来龙去脉；上下文，语境",
+    "specific": "特定的；明确的，具体的",
+    "ought_to": "应该，应当",
+    "particular": "特别的，格外的；特指的；挑剔的",
+    "in_particular": "尤其，特别",
+    "topic": "话题；题目；标题",
+    "collection": "(同类)收藏品；作品集；募捐",
+    "section": "部分，部门；部件，散件",
+    "mean": "吝啬的，小气的；不善良的，刻薄的",
+    "transport": "运输，运送",
+    "turkey": "火鸡；火鸡肉",
+    "generosity": "慷慨，大方，宽宏大量",
+    "chapter": "章节；篇章",
+    "poetry": "诗集，诗歌",
+    "stage": "舞台；阶段；步骤",
+    "autobiography": "自传",
+    "biography": "传记，传记作品",
+    "extremely": "极其，非常，极端",
+    "destroy": "摧毁，毁灭，破坏",
+    "defeat": "击败，战胜",
+    "attempt": "努力，尝试，试图",
+    "straighten": "挺直；(使)变直，变正",
+    "strain": "用劲，使力；压力，拉力；重负",
+    "alongside": "在…旁边；与…一起",
+    "accomplish": "完成",
+    "noble": "贵族的，高贵的；崇高的；宏伟的",
+    "confused": "糊涂的，迷惑的；不清楚的，混乱的",
+    "clear_up": "(头脑)清醒；使整洁，清理；天气放晴",
+    "be_on_the_point_of_doing_sth": "正要做某事",
+    "weave": "迂回行进，穿行; 编",
+    "mushy": "糊状的，软而稠的",
+    "flash": "闪光，闪现"
+// 这是你刚才要加的例子
+    // Your words dictionary here
 };
 
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
 function generateQuestion() {
-    const keys = Object.keys(words);
-    const questionIndex = Math.floor(Math.random() * keys.length);
-    const questionWord = keys[questionIndex];
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
     const correctAnswer = words[questionWord];
     let options = [];
-    for (let i = 0; i < 3; i++) {
-        let optionIndex;
-        do {
-            optionIndex = Math.floor(Math.random() * keys.length);
-        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
-        options.push(words[keys[optionIndex]]);
-    }
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
     options.push(correctAnswer);
-    options.sort(() => Math.random() - 0.5);
+    shuffle(options);
     document.getElementById('word').textContent = questionWord.replace('_', ' ');
     document.getElementById('optionA').textContent = 'A: ' + options[0];
     document.getElementById('optionB').textContent = 'B: ' + options[1];
     document.getElementById('optionC').textContent = 'C: ' + options[2];
     document.getElementById('optionD').textContent = 'D: ' + options[3];
     document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
 }
 
 function checkAnswer(selected) {
@@ -139,17 +171,27 @@ function checkAnswer(selected) {
     if (selected === parseInt(correct)) {
         selectedButton.style.backgroundColor = 'lightgreen';
         document.getElementById('match').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-            generateQuestion();
-        }, 1000);
+        correctCount++;
     } else {
         selectedButton.style.backgroundColor = 'lightcoral';
         document.getElementById('unmatch').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-        }, 1000);
     }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
 }
 
 document.addEventListener('DOMContentLoaded', generateQuestion);
@@ -165,6 +207,10 @@ document.addEventListener('DOMContentLoaded', generateQuestion);
         <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
         <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
     </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
     <input type="hidden" id="correct">
 </div>
 <audio id="match" src="match.wav"></audio>

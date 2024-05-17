@@ -12,14 +12,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content:center;
     }
     #content {
         text-align: center;
         width: 100%;
     }
     #word {
-        font-size: 24px;
+ font-family: Arial-Black, sans-serif;
+        font-size: 36px;
+font-color:blue
         margin-top: 20px;
     }
     .option {
@@ -31,7 +33,7 @@
         background-color: white;
         font-size: 16px;
         cursor: pointer;
-        width: 200px;
+        width: 300px;
         display: inline-block;
     }
     .option:hover {
@@ -41,6 +43,19 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
     }
 </style>
 <script>
@@ -132,30 +147,47 @@ const words = {
     "widespread": "分布广的，普遍的，广泛的",
     "bandage": "绷带",
     "infection": "传染，感染"
-    // 单词和中文翻译如前所示...
+// 这是你刚才要加的例子
+    // Your words dictionary here
 };
 
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
 function generateQuestion() {
-    const keys = Object.keys(words);
-    const questionIndex = Math.floor(Math.random() * keys.length);
-    const questionWord = keys[questionIndex];
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
     const correctAnswer = words[questionWord];
     let options = [];
-    for (let i = 0; i < 3; i++) {
-        let optionIndex;
-        do {
-            optionIndex = Math.floor(Math.random() * keys.length);
-        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
-        options.push(words[keys[optionIndex]]);
-    }
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
     options.push(correctAnswer);
-    options.sort(() => Math.random() - 0.5);
+    shuffle(options);
     document.getElementById('word').textContent = questionWord.replace('_', ' ');
     document.getElementById('optionA').textContent = 'A: ' + options[0];
     document.getElementById('optionB').textContent = 'B: ' + options[1];
     document.getElementById('optionC').textContent = 'C: ' + options[2];
     document.getElementById('optionD').textContent = 'D: ' + options[3];
     document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
 }
 
 function checkAnswer(selected) {
@@ -164,17 +196,27 @@ function checkAnswer(selected) {
     if (selected === parseInt(correct)) {
         selectedButton.style.backgroundColor = 'lightgreen';
         document.getElementById('match').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-            generateQuestion();
-        }, 1000);
+        correctCount++;
     } else {
         selectedButton.style.backgroundColor = 'lightcoral';
         document.getElementById('unmatch').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-        }, 1000);
     }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
 }
 
 document.addEventListener('DOMContentLoaded', generateQuestion);
@@ -190,6 +232,10 @@ document.addEventListener('DOMContentLoaded', generateQuestion);
         <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
         <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
     </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
     <input type="hidden" id="correct">
 </div>
 <audio id="match" src="match.wav"></audio>

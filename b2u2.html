@@ -12,14 +12,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content:center;
     }
     #content {
         text-align: center;
         width: 100%;
     }
     #word {
-        font-size: 24px;
+ font-family: Arial-Black, sans-serif;
+        font-size: 36px;
+font-color:blue
         margin-top: 20px;
     }
     .option {
@@ -31,7 +33,7 @@
         background-color: white;
         font-size: 16px;
         cursor: pointer;
-        width: 200px;
+        width: 300px;
         display: inline-block;
     }
     .option:hover {
@@ -42,102 +44,132 @@
         flex-direction: column;
         align-items: center;
     }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
+    }
 </style>
 <script>
 const words = {
-soccer: "足球运动",
-    bat: "蝙蝠; 球棒, 球板; 用球棒(板)击球",
-    skydiving: "跳伞运动",
-    congratulation: "祝贺, 恭喜；贺辞；恭贺",
-    assume: "假定, 认为; 承担(责任), 就（职）；呈现，显露",
-    do_wonders: "创造奇迹, 产生神奇作用",
-    lung: "肺",
-    over_the_long_term: "长期",
-    tend: "往往会; 趋向; 照看",
-    immune: "有免疫力; 不受影响的；免除的",
-    disease: "病, 疾病",
-    moreover: "此外, 而且",
-    reduce: "减少, 缩小",
-    routine: "常规, 惯例; 常规的, 例行的; 乏味的",
-    muscle: "肌肉, 肌",
-    aerobic: "有氧的; 需氧的",
-    jogging: "慢跑锻炼",
-    skiing: "滑雪(运动)",
-    pull_up: "引体向上",
-    bone: "骨头, 骨",
-    gymnastics: "体操, 体操训练",
-    tai_chi: "太极拳, 太极",
-    stretch: "伸展, 舒展; 拉长; 伸出；（使）延伸",
-    range: "范围, 剪限; 区间; 一系列",
-    stick_with: "持续, 坚持",
-    petrol: "汽油",
-    carbohydrate: "碳水",
-    energy: "能。能量, 精力; 能源",
-    protein: "蛋白质",
-    average: "平均水平, 一般水准; 平均的; 典型的",
-    make_up_for: "弥补, 补偿",
-    sweat: "汗水; 出汗, 流汗",
-    injury: "伤害, 损伤",
-    prevent: "阻止, 阻碍",
-    tissue: "(人、动植物细胞的)组织;(尤指用作手帕的)纸巾，手巾纸",
-    lack: "缺乏, 匮乏, 短缺; 没有, 缺乏, 不足, 短缺",
-    maintain: "维持; 维修, 保养",
-    announce: "宣布, 宣告; 通知",
-    put_the_finishing_touches_to: "对⋯进行最后的润色或修饰",
-    update: "使现代化, 更新; 向⋯提供最新信息; 最新消息",
-    in_response_to: "对⋯作出反应; 作为对⋯",
-    athlete: "运动员",
-    boxing: "拳击运动",
-    champion: "冠军, 第一名",
-    court: "球场; 法院, 法庭; 宫廷",
-    under_the_weather: "略有不适, 不舒服",
-    plus: "而且, 此外; 加; 和",
-    nearby: "附近的, 邻近的; 在附近, 不远",
-    gym: "健身房, 体育馆",
-    partner: "搭档, 同伴; 伙伴",
-    hesitate: "犹豫, 迟疑",
-    admit: "承认; 招认; 准许",
-    inspire: "激励, 鼓舞; 启发思",
-    explore: "探究, 探索",
-    crane: "鹤",
-    rooster: "雄鸡",
-    inspiration: "灵感; 鼓舞人",
-    nowadays: "现今, 现在",
-    master: "大师, 能手; 主人; 精通, 掌握; 控制",
-    no_wonder: "不足为奇, 并不奇怪",
-    imitate: "模仿; 仿效",
-    ache: "疼痛, 隐痛",
-    satisfaction: "满意; 满足, 达到",
-    root: "根，根茎；根源，起因",
-    be_rooted_in: "起源于",
-    philosophy: "哲学",
-    unity: "统一体, 联合体, 整体; 团结一致，联合，统一",
-    exist: "存在; 生活, 生存",
-    backwards: "向后；朝反方向"
-    // 单词和中文翻译如前所示...
+  "soccer": "足球运动",
+    "bat": "蝙蝠; 球棒, 球板; 用球棒(板)击球",
+    "skydiving": "跳伞运动",
+    "congratulation": "祝贺, 恭喜；贺辞；恭贺",
+    "assume": "假定, 认为; 承担(责任), 就（职）；呈现，显露",
+    "do_wonders": "创造奇迹, 产生神奇作用",
+    "lung": "肺",
+    "over_the_long_term": "长期",
+    "tend": "往往会; 趋向; 照看",
+    "immune": "有免疫力; 不受影响的；免除的",
+    "disease": "病, 疾病",
+    "moreover": "此外, 而且",
+    "reduce": "减少, 缩小",
+    "routine": "常规, 惯例; 常规的, 例行的; 乏味的",
+    "muscle": "肌肉, 肌",
+    "aerobic": "有氧的; 需氧的",
+    "jogging": "慢跑锻炼",
+    "skiing": "滑雪(运动)",
+    "pull_up": "引体向上",
+    "bone": "骨头, 骨",
+    "gymnastics": "体操, 体操训练",
+    "tai_chi": "太极拳, 太极",
+    "stretch": "伸展, 舒展; 拉长; 伸出；（使）延伸",
+    "range": "范围, 剪限; 区间; 一系列",
+    "stick_with": "持续, 坚持",
+    "petrol": "汽油",
+    "carbohydrate": "碳水化合物",
+    "energy": "能量, 精力; 能源",
+    "protein": "蛋白质",
+    "average": "平均水平, 一般水准; 平均的; 典型的",
+    "make_up_for": "弥补, 补偿",
+    "sweat": "汗水; 出汗, 流汗",
+    "injury": "伤害, 损伤",
+    "prevent": "阻止, 阻碍",
+    "tissue": "(人、动植物细胞的)组织; (尤指用作手帕的)纸巾，手巾纸",
+    "lack": "缺乏, 匮乏, 短缺; 没有, 缺乏, 不足, 短缺",
+    "maintain": "维持; 维修, 保养",
+    "announce": "宣布, 宣告; 通知",
+    "put_the_finishing_touches_to": "对⋯进行最后的润色或修饰",
+    "update": "使现代化, 更新; 向⋯提供最新信息; 最新消息",
+    "in_response_to": "对⋯作出反应; 作为对⋯的回应",
+    "athlete": "运动员",
+    "boxing": "拳击运动",
+    "champion": "冠军, 第一名",
+    "court": "球场; 法院, 法庭; 宫廷",
+    "under_the_weather": "略有不适, 不舒服",
+    "plus": "而且, 此外; 加; 和",
+    "nearby": "附近的, 邻近的; 在附近, 不远",
+    "gym": "健身房, 体育馆",
+    "partner": "搭档, 同伴; 伙伴",
+    "hesitate": "犹豫, 迟疑",
+    "admit": "承认; 招认; 准许进入",
+    "inspire": "激励, 鼓舞; 启发",
+    "explore": "探究, 探索",
+    "crane": "鹤",
+    "rooster": "雄鸡",
+    "inspiration": "灵感; 鼓舞人心的人或事",
+    "nowadays": "现今, 现在",
+    "master": "大师, 能手; 主人; 精通, 掌握; 控制",
+    "no_wonder": "不足为奇, 并不奇怪",
+    "imitate": "模仿; 仿效",
+    "ache": "疼痛, 隐痛",
+    "satisfaction": "满意; 满足, 达到",
+    "root": "根，根茎；根源，起因",
+    "be_rooted_in": "起源于",
+    "philosophy": "哲学",
+    "unity": "统一体, 联合体, 整体; 团结一致，联合，统一",
+    "exist": "存在; 生活, 生存",
+    "backwards": "向后；朝反方向"
+// 这是你刚才要加的例子
+    // Your words dictionary here
 };
 
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
 function generateQuestion() {
-    const keys = Object.keys(words);
-    const questionIndex = Math.floor(Math.random() * keys.length);
-    const questionWord = keys[questionIndex];
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
     const correctAnswer = words[questionWord];
     let options = [];
-    for (let i = 0; i < 3; i++) {
-        let optionIndex;
-        do {
-            optionIndex = Math.floor(Math.random() * keys.length);
-        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
-        options.push(words[keys[optionIndex]]);
-    }
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
     options.push(correctAnswer);
-    options.sort(() => Math.random() - 0.5);
+    shuffle(options);
     document.getElementById('word').textContent = questionWord.replace('_', ' ');
     document.getElementById('optionA').textContent = 'A: ' + options[0];
     document.getElementById('optionB').textContent = 'B: ' + options[1];
     document.getElementById('optionC').textContent = 'C: ' + options[2];
     document.getElementById('optionD').textContent = 'D: ' + options[3];
     document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
 }
 
 function checkAnswer(selected) {
@@ -146,17 +178,27 @@ function checkAnswer(selected) {
     if (selected === parseInt(correct)) {
         selectedButton.style.backgroundColor = 'lightgreen';
         document.getElementById('match').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-            generateQuestion();
-        }, 1000);
+        correctCount++;
     } else {
         selectedButton.style.backgroundColor = 'lightcoral';
         document.getElementById('unmatch').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-        }, 1000);
     }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
 }
 
 document.addEventListener('DOMContentLoaded', generateQuestion);
@@ -164,7 +206,7 @@ document.addEventListener('DOMContentLoaded', generateQuestion);
 </head>
 <body>
 <div id="content">
-    <h1>单词交互测试b1u2</h1>
+    <h1>单词交互测试b2u2</h1>
     <p id="word"></p>
     <div id="optionsContainer">
         <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
@@ -172,6 +214,10 @@ document.addEventListener('DOMContentLoaded', generateQuestion);
         <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
         <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
     </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
     <input type="hidden" id="correct">
 </div>
 <audio id="match" src="match.wav"></audio>

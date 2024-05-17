@@ -12,14 +12,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content:center;
     }
     #content {
         text-align: center;
         width: 100%;
     }
     #word {
-        font-size: 24px;
+ font-family: Arial-Black, sans-serif;
+        font-size: 36px;
+font-color:blue
         margin-top: 20px;
     }
     .option {
@@ -31,7 +33,7 @@
         background-color: white;
         font-size: 16px;
         cursor: pointer;
-        width: 200px;
+        width: 300px;
         display: inline-block;
     }
     .option:hover {
@@ -42,107 +44,137 @@
         flex-direction: column;
         align-items: center;
     }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
+    }
 </style>
 <script>
 const words = {
- on_the_rocks: "（关系）陷于困境，濒临崩溃",
-    awkward: "笨拙的；令人尬的；难对付的",
-    sight: "视野；视力；看见",
-    out_of_ones_sight: "脱离某人的视线",
-    original: "起初的，独创的；原作的",
-    medium: "传播信息的媒介，方法；手段，工具",
-    social_media: "社交媒体",
-    make_it: "能够出席，准时到达，获得成功",
-    horrible: "令人震惊的；可恶的，极坏的",
-    chat: "聊天，闲聊",
-    café: "咖啡馆，小餐馆",
-    recover: "恢复健康；恢复常态",
-    respond: "回答，回应；作出反应，响应",
-    loss: "失去，丧失；亏损；去世；损失",
-    at_a_loss: "不知所措，困惑",
-    judge: "评价，(尤指)批评；判断，认为；法官；裁判员",
-    in_the_wrong: "有错，应承担责任",
-    apologize: "道歉，谢罪",
-    behaviour: "行为，举止，态度",
-    case: "具体情况，事例；案件；容器",
-    in_any_case: "无论如何，不管怎样",
-    frank: "坦率的，直率的",
-    definitely: "肯定，确实；确切地",
-    trick: "欺骗，欺诈；诡计，花招；戏法",
-    let_go_of: "放弃，摒弃；松手，放开",
-    ignore: "忽视，对…不予理会",
-    suffer: "受苦，受折磨；变差；遭受，蒙受",
-    misunderstand: "误解，误会",
-    contact: "联系，联络",
-    explode: "(愤怒等感情)爆发，进发；爆炸",
-    generous: "宽宏大量的，仁慈的；慷慨的",
-    count_on: "依赖，依靠，指望",
-    eat_away_at: "腐蚀，侵蚀，逐渐破坏",
-    shallow: "肤浅的，浅薄的，浅的",
-    blog: "博客，网志",
-    come_between_and: "损害…之间的关系，离间",
-    in_person: "亲自，亲身",
-    theme: "主题；主旋律",
-    slave: "奴隶",
-    raft: "木排，筏",
-    high_point: "最有意思(或最令人愉快，最好)的部分",
-    through_thick_and_thin: "不顾艰难险阻，同甘共苦",
-    opinion: "意见，看法，(群体的)观点，信仰",
-    in_ones_opinion: "在某人看来",
-    quality: "品德，素质；质量；特征",
-    basis: "基础，原因；基准",
-    respect: "尊重，尊敬",
-    get_over: "克服；恢复常态",
-    efficient: "效率高的，有功效的",
-    extra: "额外的，分外的，附加的",
-    bring_out: "使显现，使表现出",
-    measure: "估量，判定，测量",
-    reflection: "沉思；反射；映像；反映",
-    seek: "试图；寻找；争取",
-    escape: "逃跑，逃脱；避开，避免；被遗忘",
-    smooth_out: "清除(问题)，克服(困难)",
-    be_meant_to_do_sth: "注定要做某事，应做某事",
-    benefit: "优势，益处，成效",
-    comfort: "宽慰，抚慰",
-    joy: "高兴，愉快；令人高兴的人(或事)，乐趣",
-    failure: "失败；失败的人(或事)；未履行；故障",
-    take_on: "呈现，具有;从事，承担",
-    in_full_measure: "最大程度地，最大限度地",
-    moment: "时光，时机；瞬间；某个时刻",
-    indeed: "其实，实际上；的确；真止地",
-    well_meaning: "出于好心的，善意的",
-    recognize: "承认，意识到；认出，辨别出",
-    thorough: "彻底的，全面的；仔细的",
-    death: "死，死亡；死亡状态",
-    company: "陪伴，作伴；公司",
-    crowd: "一伙人，一帮人；人群",
-    poet: "诗人",
-    admire: "钦佩；欣赏",
-    wine: "葡萄酒；果酒"
-    // 单词和中文翻译如前所示...
+  "on the rocks": "（关系）陷于困境，濒临崩溃",
+    "awkward": "笨拙的；令人尬的；难对付的",
+    "sight": "视野；视力；看见",
+    "out of one’s sight": "脱离某人的视线",
+    "original": "起初的，独创的；原作的",
+    "medium": "传播信息的媒介，方法；手段，工具. 中等的，中号的",
+    "social media": "社交媒体",
+    "make it": "能够出席，准时到达，获得成功",
+    "horrible": "令人震惊的；可恶的，极坏的",
+    "chat": "聊天，闲聊",
+    "café": "咖啡馆，小餐馆",
+    "recover": "恢复健康；恢复常态. 全额收回；寻回；重新获得；恢复，重新控制",
+    "respond": "回答，回应；作出反应，响应",
+    "loss": "失去，丧失；亏损；去世；损失",
+    "at a loss": "不知所措，困惑",
+    "judge": "评价，(尤指)批评；判断，认为. 法官；裁判员",
+    "in the wrong": "有错，应承担责任",
+    "apologize": "道歉，谢罪",
+    "behaviour": "行为，举止，态度",
+    "case": "具体情况，事例；案件；容器",
+    "in any case": "无论如何，不管怎样",
+    "frank": "坦率的，直率的",
+    "definitely": "肯定，确实；确切地",
+    "trick": "欺骗，欺诈. 诡计，花招；戏法",
+    "let go of": "放弃，摒弃；松手，放开",
+    "ignore": "忽视，对…不予理会",
+    "suffer": "受苦，受折磨；变差. 遭受，蒙受",
+    "misunderstand": "误解，误会",
+    "contact": "联系，联络",
+    "explode": "（愤怒等感情）爆发，进发；爆炸.使爆炸",
+    "generous": "宽宏大量的，仁慈的；慷慨的",
+    "count on": "依赖，依靠，指望",
+    "eat away at": "腐蚀，侵蚀，逐渐破坏",
+    "shallow": "肤浅的，浅薄的，浅的",
+    "blog": "博客，网志",
+    "come between…and…": "损害…之间的关系，离间",
+    "in person": "亲自，亲身",
+    "theme": "主题；主旋律",
+    "slave": "奴隶",
+    "raft": "木排，筏",
+    "high point": "最有意思（或最令人愉快，最好）的部分",
+    "through thick and thin": "不顾艰难险阻，同甘共苦",
+    "opinion": "意见，看法，(群体的)观点，信仰",
+    "in one’s opinion": "在某人看来",
+    "quality": "品德，素质；质量；特征. 优质的，高质量的",
+    "basis": "基础，原因；基准",
+    "respect": "尊重，尊敬. 尊敬，敬意，重视",
+    "get over": "克服；恢复常态",
+    "efficient": "效率高的，有功效的",
+    "extra": "额外的，分外的，附加的. 额外，另外；特别，格外",
+    "bring out": "使显现，使表现出",
+    "measure": "估量，判定，测量. 措施；衡量",
+    "reflection": "沉思；反射；映像；反映",
+    "seek": "试图；寻找；争取. 寻求；寻找",
+    "escape": "逃跑，逃脱；避开，避免；被遗忘.逃离，逃脱",
+    "smooth out": "清除（问题），克服（困难）",
+    "be meant to do sth": "注定要做某事，应做某事",
+    "benefit": "优势，益处，成效. 使受益. 得益于",
+    "comfort": "宽慰，抚慰. 舒服；安慰",
+    "joy": "高兴，愉快；令人高兴的人（或事），乐趣",
+    "failure": "失败；失败的人（或事）；未履行；故障",
+    "take on": "呈现，具有;从事，承担",
+    "in full measure": "最大程度地，最大限度地",
+    "moment": "时光，时机；瞬间；某个时刻",
+    "indeed": "其实，实际上；的确；真止地",
+    "well-meaning": "出于好心的，善意的",
+    "recognize": "承认，意识到；认出，辨别出",
+    "thorough": "彻底的，全面的；仔细的",
+    "death": "死，死亡；死亡状态",
+    "company": "陪伴，作伴；公司",
+    "crowd": "一伙人，一帮人；人群.挤满，使拥挤. 聚集，挤，涌",
+    "poet": "诗人",
+    "admire": "钦佩；欣赏",
+    "wine": "葡萄酒；果酒"
+// 这是你刚才要加的例子
+    // Your words dictionary here
 };
 
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
 function generateQuestion() {
-    const keys = Object.keys(words);
-    const questionIndex = Math.floor(Math.random() * keys.length);
-    const questionWord = keys[questionIndex];
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
     const correctAnswer = words[questionWord];
     let options = [];
-    for (let i = 0; i < 3; i++) {
-        let optionIndex;
-        do {
-            optionIndex = Math.floor(Math.random() * keys.length);
-        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
-        options.push(words[keys[optionIndex]]);
-    }
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
     options.push(correctAnswer);
-    options.sort(() => Math.random() - 0.5);
+    shuffle(options);
     document.getElementById('word').textContent = questionWord.replace('_', ' ');
     document.getElementById('optionA').textContent = 'A: ' + options[0];
     document.getElementById('optionB').textContent = 'B: ' + options[1];
     document.getElementById('optionC').textContent = 'C: ' + options[2];
     document.getElementById('optionD').textContent = 'D: ' + options[3];
     document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
 }
 
 function checkAnswer(selected) {
@@ -151,17 +183,27 @@ function checkAnswer(selected) {
     if (selected === parseInt(correct)) {
         selectedButton.style.backgroundColor = 'lightgreen';
         document.getElementById('match').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-            generateQuestion();
-        }, 1000);
+        correctCount++;
     } else {
         selectedButton.style.backgroundColor = 'lightcoral';
         document.getElementById('unmatch').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-        }, 1000);
     }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
 }
 
 document.addEventListener('DOMContentLoaded', generateQuestion);
@@ -177,6 +219,10 @@ document.addEventListener('DOMContentLoaded', generateQuestion);
         <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
         <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
     </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
     <input type="hidden" id="correct">
 </div>
 <audio id="match" src="match.wav"></audio>

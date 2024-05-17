@@ -12,14 +12,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content:center;
     }
     #content {
         text-align: center;
         width: 100%;
     }
     #word {
-        font-size: 24px;
+ font-family: Arial-Black, sans-serif;
+        font-size: 36px;
+font-color:blue
         margin-top: 20px;
     }
     .option {
@@ -31,7 +33,7 @@
         background-color: white;
         font-size: 16px;
         cursor: pointer;
-        width: 200px;
+        width: 300px;
         display: inline-block;
     }
     .option:hover {
@@ -42,97 +44,127 @@
         flex-direction: column;
         align-items: center;
     }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
+    }
 </style>
 <script>
 const words = {
-webcam: "网络摄像头",
-    pot: "壶，瓶，罐；锅",
-    emoji: "表情符号",
-    comic: "连环漫画；喜剧演员",
-    take_off: "突然大受欢迎，迅速流行",
-    frontier: "国界，边界；尖端，边缘",
-    billion: "十亿",
-    obviously: "显然，明显地",
-    access: "机会，权利；路径，通道",
-    extent: "程度，限度；范围",
-    to_a_certain_extent: "在一定程度上",
-    at_ones_fingertips: "掌握（信息），熟悉、精通（知识等），了如指掌",
-    click: "点击，单击；咔哒声",
-    button: "按钮；纽扣",
-    recipe: "食谱；方法，秘诀",
-    military: "军事的，军队的",
-    affair: "公共事务，政治事务；事件，事情",
-    bring_up: "使显示在计算机屏幕上，调出；提出",
-    majority: "大部分，大多数；多数票",
-    goods: "商品，货品；私人财产",
-    commerce: "商务；商业；贸易",
-    deliver: "递送，传送；发表，宣布；交出",
-    site: "网站，站点；地点；现场",
-    boot: "靴子",
-    arrangement: "安排；布置；约定；排列",
-    cash: "现金；金钱，资金",
-    above_all_else: "最重要的是，尤其是",
-    establish: "建立（关系或联系）；设立；确立；使得到认可；查实，确定",
-    software: "软件",
-    instant: "立即的，立刻的；方便的",
-    comment: "议论，评论；批评，指责",
-    aware: "知道，意识到；察觉到，发觉；有…意识的",
-    surf: "（互联网上）冲浪，浏览；进行冲浪运动",
-    guideline: "准则，指导方针；参考",
-    remove: "删除；移走；开除",
-    file: "文件；文件夹；档案",
-    belong_to: "属于，归…所有",
-    ballet: "芭蕾舞；芭蕾舞剧；芭蕾舞团",
-    set_up: "创建，建立",
-    request: "要求，请求",
-    technical: "技术的，技能的；专门技术的；专业的",
-    upload: "上载，上传",
-    download: "下载",
-    percentage: "百分率，百分比；提成",
-    entertainment: "娱乐活动；招待，娱乐",
-    mobile: "可移动的，非固定的；行动方便的；流动的",
-    device: "设备，仪器；手段，技巧",
-    addict: "对…入迷的人；瘾君子",
-    be_glued_to_sth: "全神贯注看着某物，离某物很近",
-    Wi_Fi: "无线网络",
-    battery: "电池",
-    quit: "停止，戒掉；离开",
-    shoot_past: "飞驰而过",
-    knock_sb_off_ones_feet: "撞倒某人，使某人双脚离地",
-    scary: "恐怖的，吓人的",
-    somehow: "不知怎么地；以某种方式（或方法）",
-    be_lost_in: "全神贯注，沉浸于",
-    journal: "日记；报纸，杂志",
-    reveal: "展示，显出；揭示，透露",
-    appreciate: "欣赏，赏识；感谢",
-    wide_ranging: "覆盖面广的，内容广泛的",
-    opera: "歌剧；歌剧院",
-    badminton: "羽毛球运动",
-    cut_back_on: "减少"
-    // 单词和中文翻译如前所示...
+   "webcam": "网络摄像头",
+    "pot": "壶，瓶，罐；锅",
+    "emoji": "表情符号",
+    "comic": "连环漫画；喜剧演员",
+    "take_off": "突然大受欢迎，迅速流行",
+    "frontier": "国界，边界；尖端，边缘",
+    "billion": "十亿",
+    "obviously": "显然，明显地",
+    "access": "机会，权利；路径，通道",
+    "extent": "程度，限度；范围",
+    "to_a_certain_extent": "在一定程度上",
+    "at_ones_fingertips": "掌握（信息），熟悉、精通（知识等），了如指掌",
+    "click": "点击，单击；咔哒声",
+    "button": "按钮；纽扣",
+    "recipe": "食谱；方法，秘诀",
+    "military": "军事的，军队的",
+    "affair": "公共事务，政治事务；事件，事情",
+    "bring_up": "使显示在计算机屏幕上，调出；提出",
+    "majority": "大部分，大多数；多数票",
+    "goods": "商品，货品；私人财产",
+    "commerce": "商务；商业；贸易",
+    "deliver": "递送，传送；发表，宣布；交出",
+    "site": "网站，站点；地点；现场",
+    "boot": "靴子",
+    "arrangement": "安排；布置；约定；排列",
+    "cash": "现金；金钱，资金",
+    "above_all_else": "最重要的是，尤其是",
+    "establish": "建立（关系或联系）；设立；确立；使得到认可；查实，确定",
+    "software": "软件",
+    "instant": "立即的，立刻的；方便的",
+    "comment": "议论，评论；批评，指责",
+    "aware": "知道，意识到；察觉到，发觉；有…意识的",
+    "surf": "（互联网上）冲浪，浏览；进行冲浪运动",
+    "guideline": "准则，指导方针；参考",
+    "remove": "删除；移走；开除",
+    "file": "文件；文件夹；档案",
+    "belong_to": "属于，归…所有",
+    "ballet": "芭蕾舞；芭蕾舞剧；芭蕾舞团",
+    "set_up": "创建，建立",
+    "request": "要求，请求",
+    "technical": "技术的，技能的；专门技术的；专业的",
+    "upload": "上载，上传",
+    "download": "下载",
+    "percentage": "百分率，百分比；提成",
+    "entertainment": "娱乐活动；招待，娱乐",
+    "mobile": "可移动的，非固定的；行动方便的；流动的",
+    "device": "设备，仪器；手段，技巧",
+    "addict": "对…入迷的人；瘾君子",
+    "be_glued_to_sth": "全神贯注看着某物，离某物很近",
+    "Wi_Fi": "无线网络",
+    "battery": "电池",
+    "quit": "停止，戒掉；离开",
+    "shoot_past": "飞驰而过",
+    "knock_sb_off_ones_feet": "撞倒某人，使某人双脚离地",
+    "scary": "恐怖的，吓人的",
+    "somehow": "不知怎么地；以某种方式（或方法）",
+    "be_lost_in": "全神贯注，沉浸于",
+    "journal": "日记；报纸，杂志",
+    "reveal": "展示，显出；揭示，透露",
+    "appreciate": "欣赏，赏识；感谢",
+    "wide_ranging": "覆盖面广的，内容广泛的",
+    "opera": "歌剧；歌剧院",
+    "badminton": "羽毛球运动",
+    "cut_back_on": "减少"
+// 这是你刚才要加的例子
+    // Your words dictionary here
 };
 
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
 function generateQuestion() {
-    const keys = Object.keys(words);
-    const questionIndex = Math.floor(Math.random() * keys.length);
-    const questionWord = keys[questionIndex];
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
     const correctAnswer = words[questionWord];
     let options = [];
-    for (let i = 0; i < 3; i++) {
-        let optionIndex;
-        do {
-            optionIndex = Math.floor(Math.random() * keys.length);
-        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
-        options.push(words[keys[optionIndex]]);
-    }
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
     options.push(correctAnswer);
-    options.sort(() => Math.random() - 0.5);
+    shuffle(options);
     document.getElementById('word').textContent = questionWord.replace('_', ' ');
     document.getElementById('optionA').textContent = 'A: ' + options[0];
     document.getElementById('optionB').textContent = 'B: ' + options[1];
     document.getElementById('optionC').textContent = 'C: ' + options[2];
     document.getElementById('optionD').textContent = 'D: ' + options[3];
     document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
 }
 
 function checkAnswer(selected) {
@@ -141,17 +173,27 @@ function checkAnswer(selected) {
     if (selected === parseInt(correct)) {
         selectedButton.style.backgroundColor = 'lightgreen';
         document.getElementById('match').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-            generateQuestion();
-        }, 1000);
+        correctCount++;
     } else {
         selectedButton.style.backgroundColor = 'lightcoral';
         document.getElementById('unmatch').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-        }, 1000);
     }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
 }
 
 document.addEventListener('DOMContentLoaded', generateQuestion);
@@ -167,6 +209,10 @@ document.addEventListener('DOMContentLoaded', generateQuestion);
         <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
         <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
     </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
     <input type="hidden" id="correct">
 </div>
 <audio id="match" src="match.wav"></audio>

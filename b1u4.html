@@ -12,14 +12,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content:center;
     }
     #content {
         text-align: center;
         width: 100%;
     }
     #word {
-        font-size: 24px;
+ font-family: Arial-Black, sans-serif;
+        font-size: 36px;
+font-color:blue
         margin-top: 20px;
     }
     .option {
@@ -31,7 +33,7 @@
         background-color: white;
         font-size: 16px;
         cursor: pointer;
-        width: 200px;
+        width: 300px;
         display: inline-block;
     }
     .option:hover {
@@ -42,101 +44,131 @@
         flex-direction: column;
         align-items: center;
     }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
+    }
 </style>
 <script>
 const words = {
-skip: "不做(应做的事情等)；跳过",
-    yogurt: "酸奶",
-    faint: "昏厥；快要昏厥的；微弱的；可能性不大的",
-    pass_out: "昏迷，失去知觉",
-    immediately: "立即，马上",
-    concentrate: "集中(注意力、思想等)；全神贯注",
-    sex: "性别",
-    extreme: "极端的；严重的",
-    slim: "变苗条，减肥；苗条的；微薄的，小的",
-    slim_down: "变苗条，减肥",
-    per_cent: "百分之…",
-    concerned: "担心的，忧虑的；关注的，关切的",
-    effect: "效果，作用；影响",
-    side_effect: "副作用",
-    prove: "后来被发现是；证明，证实",
-    slightly: "稍微，略微",
-    diet: "节食，日常饮食；节食，进行规定饮食",
-    nutrition: "营养",
-    function: "起作用，正常工作，运转；作用，功能，职能",
-    take_in: "摄入，吸收；欺骗",
-    energetic: "精力充沛的，充满活力的",
-    effective: "有效的；生效的",
-    get_into_shape: "强身健体",
-    frightened: "害怕的，惊吓的，受惊的",
-    within: "在(某段时间)之内；在(某段距离、范围)之内；在…里",
-    rather: "相反，而是；相当；更准确地说",
-    aspect: "方面，层面",
-    pressure: "心理压力，紧张；压力；要求，催促",
-    contribute: "是…的原因之一；捐赠，捐献；增加，添加",
-    contribute_to: "促成，造成；为……做贡献",
-    in_the_short_long_term: "从短期/长期看",
-    memory: "记忆力，记性；记忆，回忆",
-    attack: "发作；攻击；抨击；攻击；侵袭；抨击",
-    amount: "数量",
-    schedule: "日程安排，工作计划；时间表",
-    negative: "消极的，负面的；坏的，有害的；否定的",
-    plastic: "可塑的；塑料的；塑料",
-    surgery: "外科手术",
-    plastic_surgery: "整形手术；整形外科",
-    campus: "(大学、学院的)校园，校区",
-    guy: "小伙子，家伙",
-    treatment: "治疗；对待，待遇；处理",
-    addition: "增加，添加；加法",
-    in_addition: "此外",
-    saying: "格言，谚语，警句",
-    hang_over: "使忧心忡忡，担心可能发生",
-    jeans: "牛仔裤",
-    male: "男性的；男性，雄性",
-    female: "女性的；女性，雌性",
-    guard_against: "防范，防止，提防",
-    beauty: "美，美丽；美人，美好的东西",
-    fight_a_losing_battle: "打一场无望取胜的仗",
-    live_up_to: "达到，符合，不辜负",
-    end_up: "最终成为，最终处于",
-    fashion: "时尚，时兴，流行款式",
-    shadow: "阴影，影子；昏暗处，阴暗处",
-    digital: "数码的，数字的",
-    series: "一系列，连续",
-    show_off: "显示，展示；炫耀，卖弄",
-    external: "外来的，外在的；外面的，外部的",
-    strength: "优势；力气，力量；实力",
-    talent: "天资，天赋；人才，天才",
-    piano: "钢琴",
-    take_pride_in: "为…自豪，为…骄傲",
-    content: "内容；目录",
-    individuality: "个性，个人特征",
-    achievement: "成就，成绩；达到，完成",
-    app: "应用程序，应用软件"
-    // 单词和中文翻译如前所示...
+  "skip": "不做(应做的事情等)；跳过",
+    "yogurt": "酸奶",
+    "faint": "昏厥；快要昏厥的；微弱的；可能性不大的",
+    "pass_out": "昏迷，失去知觉",
+    "immediately": "立即，马上",
+    "concentrate": "集中(注意力、思想等)；全神贯注",
+    "sex": "性别",
+    "extreme": "极端的；严重的",
+    "slim": "变苗条，减肥；苗条的；微薄的，小的",
+    "slim_down": "变苗条，减肥",
+    "per_cent": "百分之…",
+    "concerned": "担心的，忧虑的；关注的，关切的",
+    "effect": "效果，作用；影响",
+    "side_effect": "副作用",
+    "prove": "后来被发现是；证明，证实",
+    "slightly": "稍微，略微",
+    "diet": "节食，日常饮食；节食，进行规定饮食",
+    "nutrition": "营养",
+    "function": "起作用，正常工作，运转；作用，功能，职能",
+    "take_in": "摄入，吸收；欺骗",
+    "energetic": "精力充沛的，充满活力的",
+    "effective": "有效的；生效的",
+    "get_into_shape": "强身健体",
+    "frightened": "害怕的，惊吓的，受惊的",
+    "within": "在(某段时间)之内；在(某段距离、范围)之内；在…里",
+    "rather": "相反，而是；相当；更准确地说",
+    "aspect": "方面，层面",
+    "pressure": "心理压力，紧张；压力；要求，催促",
+    "contribute": "是…的原因之一；捐赠，捐献；增加，添加",
+    "contribute_to": "促成，造成；为……做贡献",
+    "in_the_short_long_term": "从短期/长期看",
+    "memory": "记忆力，记性；记忆，回忆",
+    "attack": "发作；攻击；抨击；攻击；侵袭；抨击",
+    "amount": "数量",
+    "schedule": "日程安排，工作计划；时间表",
+    "negative": "消极的，负面的；坏的，有害的；否定的",
+    "plastic": "可塑的；塑料的；塑料",
+    "surgery": "外科手术",
+    "plastic_surgery": "整形手术；整形外科",
+    "campus": "(大学、学院的)校园，校区",
+    "guy": "小伙子，家伙",
+    "treatment": "治疗；对待，待遇；处理",
+    "addition": "增加，添加；加法",
+    "in_addition": "此外",
+    "saying": "格言，谚语，警句",
+    "hang_over": "使忧心忡忡，担心可能发生",
+    "jeans": "牛仔裤",
+    "male": "男性的；男性，雄性",
+    "female": "女性的；女性，雌性",
+    "guard_against": "防范，防止，提防",
+    "beauty": "美，美丽；美人，美好的东西",
+    "fight_a_losing_battle": "打一场无望取胜的仗",
+    "live_up_to": "达到，符合，不辜负",
+    "end_up": "最终成为，最终处于",
+    "fashion": "时尚，时兴，流行款式",
+    "shadow": "阴影，影子；昏暗处，阴暗处",
+    "digital": "数码的，数字的",
+    "series": "一系列，连续",
+    "show_off": "显示，展示；炫耀，卖弄",
+    "external": "外来的，外在的；外面的，外部的",
+    "strength": "优势；力气，力量；实力",
+    "talent": "天资，天赋；人才，天才",
+    "piano": "钢琴",
+    "take_pride_in": "为…自豪，为…骄傲",
+    "content": "内容；目录",
+    "individuality": "个性，个人特征",
+    "achievement": "成就，成绩；达到，完成",
+    "app": "应用程序，应用软件"
+// 这是你刚才要加的例子
+    // Your words dictionary here
 };
 
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
 function generateQuestion() {
-    const keys = Object.keys(words);
-    const questionIndex = Math.floor(Math.random() * keys.length);
-    const questionWord = keys[questionIndex];
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
     const correctAnswer = words[questionWord];
     let options = [];
-    for (let i = 0; i < 3; i++) {
-        let optionIndex;
-        do {
-            optionIndex = Math.floor(Math.random() * keys.length);
-        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
-        options.push(words[keys[optionIndex]]);
-    }
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
     options.push(correctAnswer);
-    options.sort(() => Math.random() - 0.5);
+    shuffle(options);
     document.getElementById('word').textContent = questionWord.replace('_', ' ');
     document.getElementById('optionA').textContent = 'A: ' + options[0];
     document.getElementById('optionB').textContent = 'B: ' + options[1];
     document.getElementById('optionC').textContent = 'C: ' + options[2];
     document.getElementById('optionD').textContent = 'D: ' + options[3];
     document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
 }
 
 function checkAnswer(selected) {
@@ -145,17 +177,27 @@ function checkAnswer(selected) {
     if (selected === parseInt(correct)) {
         selectedButton.style.backgroundColor = 'lightgreen';
         document.getElementById('match').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-            generateQuestion();
-        }, 1000);
+        correctCount++;
     } else {
         selectedButton.style.backgroundColor = 'lightcoral';
         document.getElementById('unmatch').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-        }, 1000);
     }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
 }
 
 document.addEventListener('DOMContentLoaded', generateQuestion);
@@ -171,6 +213,10 @@ document.addEventListener('DOMContentLoaded', generateQuestion);
         <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
         <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
     </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
     <input type="hidden" id="correct">
 </div>
 <audio id="match" src="match.wav"></audio>

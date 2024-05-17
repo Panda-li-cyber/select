@@ -12,14 +12,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content:center;
     }
     #content {
         text-align: center;
         width: 100%;
     }
     #word {
-        font-size: 24px;
+ font-family: Arial-Black, sans-serif;
+        font-size: 36px;
+font-color:blue
         margin-top: 20px;
     }
     .option {
@@ -31,7 +33,7 @@
         background-color: white;
         font-size: 16px;
         cursor: pointer;
-        width: 200px;
+        width: 300px;
         display: inline-block;
     }
     .option:hover {
@@ -42,106 +44,136 @@
         flex-direction: column;
         align-items: center;
     }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
+    }
 </style>
 <script>
 const words = {
-type: "类型，种类",
-    comedy: "喜剧，喜剧片",
-    documentary: "纪实节目，纪录片",
-    fantasy: "幻想，想象",
-    horror: "震惊，恐惧",
-    romance: "浪漫史，爱情关系",
-    fiction: "小说；虚构的事",
-    science_fiction: "科幻小说",
-    behind_the_scenes: "在幕后",
-    actually: "实际上",
-    brief: "短暂的；简短的",
-    familiar: "熟悉的；常见的",
-    factor: "因素，要素",
-    dinosaur: "恐龙",
-    roar: "吼叫，咆哮",
-    sheet: "床单，纸张",
-    envelope: "信封",
-    attach: "系上，贴上",
-    visual: "视觉的",
-    frequently: "经常地",
-    studio: "录音室，播音室",
-    enable: "使能够",
-    aid: "帮助；援助",
-    prefer: "更喜爱",
-    creative: "创造的，创造性的",
-    approach: "方法；靠近",
-    angle: "角；角度",
-    prop: "支柱，道具",
-    revise: "修改；修订",
-    historian: "历史学家",
-    ensure: "确保",
-    Atlantic: "大西洋",
-    ocean: "海洋",
-    not_to_mention: "更不必说",
-    lecture: "讲座，讲课",
-    justice: "公平，正义",
-    do_justice_to: "公平对待",
-    iceberg: "冰山",
-    dragon: "龙",
-    award: "奖，奖品",
-    audience: "观众",
-    perform: "演出；执行",
-    location: "地点",
-    martial_art: "武术",
-    desert: "沙漠",
-    jungle: "丛林",
-    title: "名称，标题",
-    adapt: "适应；改编",
-    regard: "认为；注视",
-    classic: "典型的；经典的",
-    super: "极好的；超级的",
-    solution: "解决办法",
-    onto: "朝；向",
-    system: "系统",
-    cure: "治愈",
-    eventually: "最终",
-    typical: "典型的",
-    fancy: "喜欢；奢华的",
-    narrow: "狭窄的",
-    recommend: "建议；推荐",
-    personality: "个性，性格",
-    despite: "尽管",
-    major: "重大的；主修",
-    event: "事件",
-    pull_up: "停车",
-    wave: "挥手；海浪",
-    recollect: "回忆",
-    recall: "记起",
-    angel: "天使",
-    dandy: "花花公子；上等的",
-    crooked: "弯曲的",
-    arrow: "箭",
-    pea: "豌豆"
-    // 单词和中文翻译如前所示...
+   "type": "类型，种类",
+    "comedy": "喜剧，喜剧片",
+    "documentary": "纪实节目，纪录片",
+    "fantasy": "幻想，想象",
+    "horror": "震惊，恐惧",
+    "romance": "浪漫史，爱情关系",
+    "fiction": "小说；虚构的事",
+    "science_fiction": "科幻小说",
+    "behind_the_scenes": "在幕后",
+    "actually": "实际上",
+    "brief": "短暂的；简短的",
+    "familiar": "熟悉的；常见的",
+    "factor": "因素，要素",
+    "dinosaur": "恐龙",
+    "roar": "吼叫，咆哮",
+    "sheet": "床单，纸张",
+    "envelope": "信封",
+    "attach": "系上，贴上",
+    "visual": "视觉的",
+    "frequently": "经常地",
+    "studio": "录音室，播音室",
+    "enable": "使能够",
+    "aid": "帮助；援助",
+    "prefer": "更喜爱",
+    "creative": "创造的，创造性的",
+    "approach": "方法；靠近",
+    "angle": "角；角度",
+    "prop": "支柱，道具",
+    "revise": "修改；修订",
+    "historian": "历史学家",
+    "ensure": "确保",
+    "Atlantic": "大西洋",
+    "ocean": "海洋",
+    "not_to_mention": "更不必说",
+    "lecture": "讲座，讲课",
+    "justice": "公平，正义",
+    "do_justice_to": "公平对待",
+    "iceberg": "冰山",
+    "dragon": "龙",
+    "award": "奖，奖品",
+    "audience": "观众",
+    "perform": "演出；执行",
+    "location": "地点",
+    "martial_art": "武术",
+    "desert": "沙漠",
+    "jungle": "丛林",
+    "title": "名称，标题",
+    "adapt": "适应；改编",
+    "regard": "认为；注视",
+    "classic": "典型的；经典的",
+    "super": "极好的；超级的",
+    "solution": "解决办法",
+    "onto": "朝；向",
+    "system": "系统",
+    "cure": "治愈",
+    "eventually": "最终",
+    "typical": "典型的",
+    "fancy": "喜欢；奢华的",
+    "narrow": "狭窄的",
+    "recommend": "建议；推荐",
+    "personality": "个性，性格",
+    "despite": "尽管",
+    "major": "重大的；主修",
+    "event": "事件",
+    "pull_up": "停车",
+    "wave": "挥手；海浪",
+    "recollect": "回忆",
+    "recall": "记起",
+    "angel": "天使",
+    "dandy": "花花公子；上等的",
+    "crooked": "弯曲的",
+    "arrow": "箭",
+    "pea": "豌豆"
+// 这是你刚才要加的例子
+    // Your words dictionary here
 };
 
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
 function generateQuestion() {
-    const keys = Object.keys(words);
-    const questionIndex = Math.floor(Math.random() * keys.length);
-    const questionWord = keys[questionIndex];
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
     const correctAnswer = words[questionWord];
     let options = [];
-    for (let i = 0; i < 3; i++) {
-        let optionIndex;
-        do {
-            optionIndex = Math.floor(Math.random() * keys.length);
-        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
-        options.push(words[keys[optionIndex]]);
-    }
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
     options.push(correctAnswer);
-    options.sort(() => Math.random() - 0.5);
+    shuffle(options);
     document.getElementById('word').textContent = questionWord.replace('_', ' ');
     document.getElementById('optionA').textContent = 'A: ' + options[0];
     document.getElementById('optionB').textContent = 'B: ' + options[1];
     document.getElementById('optionC').textContent = 'C: ' + options[2];
     document.getElementById('optionD').textContent = 'D: ' + options[3];
     document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
 }
 
 function checkAnswer(selected) {
@@ -150,17 +182,27 @@ function checkAnswer(selected) {
     if (selected === parseInt(correct)) {
         selectedButton.style.backgroundColor = 'lightgreen';
         document.getElementById('match').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-            generateQuestion();
-        }, 1000);
+        correctCount++;
     } else {
         selectedButton.style.backgroundColor = 'lightcoral';
         document.getElementById('unmatch').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-        }, 1000);
     }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
 }
 
 document.addEventListener('DOMContentLoaded', generateQuestion);
@@ -168,7 +210,7 @@ document.addEventListener('DOMContentLoaded', generateQuestion);
 </head>
 <body>
 <div id="content">
-    <h1>单词交互测试</h1>
+    <h1>单词交互测试b2u1</h1>
     <p id="word"></p>
     <div id="optionsContainer">
         <button id="optionA" class="option" onclick="checkAnswer(0)"></button>
@@ -176,6 +218,10 @@ document.addEventListener('DOMContentLoaded', generateQuestion);
         <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
         <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
     </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
     <input type="hidden" id="correct">
 </div>
 <audio id="match" src="match.wav"></audio>

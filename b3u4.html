@@ -12,14 +12,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content:center;
     }
     #content {
         text-align: center;
         width: 100%;
     }
     #word {
-        font-size: 24px;
+ font-family: Arial-Black, sans-serif;
+        font-size: 36px;
+font-color:blue
         margin-top: 20px;
     }
     .option {
@@ -31,7 +33,7 @@
         background-color: white;
         font-size: 16px;
         cursor: pointer;
-        width: 200px;
+        width: 300px;
         display: inline-block;
     }
     .option:hover {
@@ -42,105 +44,135 @@
         flex-direction: column;
         align-items: center;
     }
+    #progressBar {
+        width: 90%;
+        background-color: #ddd;
+        margin: 20px 0;
+    }
+    #progress {
+        height: 20px;
+        background-color: #4CAF50;
+        width: 0%;
+    }
+    #stats {
+        margin-top: 10px;
+    }
 </style>
 <script>
 const words = {
- republic: "共和国，共和政体",
-    malaria: "疟疾",
-    deadly: "致命的；十足的，彻底的",
-    survival: "生存，存活；残存物，幸存事物",
-    province: "省，省份",
-    broad: "广泛的；宽阔的，广阔的；概括的；开阔的",
-    intend: "想要，计划；意指",
-    extract: "提取物；选录",
-    herb: "药草，香草；草本",
-    refer: "查阅，参考；提到，谈及",
-    experiment: "实验，试验；尝试，实践",
-    trial: "试用，试验；审讯，审判；考验",
-    limited: "有限的",
-    household: "家庭的，家用的，家务的",
-    container: "容器；集装箱，货柜",
-    postpone: "延迟，延期",
-    sufficient: "足够的，充足的",
-    data: "数据，资料，材料",
-    speed_up: "（使）加速",
-    pay_off: "成功，奏效，达到目的",
-    error: "错误，差错",
-    through_trial_and_error: "反复试验",
-    wisdom: "智慧，知识，学问；才智；明智",
-    beneficial: "有益的，有用的",
-    conduct: "组织，实施；指挥；引导；举止",
-    illustrate: "说明，解释；加插图于",
-    penicillin: "青霉素，盘尼西林",
-    mould: "霉菌；模具；类型",
-    bacteria: "细菌",
-    surround: "围绕，环绕；包围；与…紧密相关",
-    indicate: "表明；暗示；提及；指出",
-    accident: "意外，偶然的事；事故，意外遭遇",
-    by_accident: "偶然，意外地",
-    intelligent: "有才智的，聪明的；有智力的",
-    favour: "较喜欢；偏袒；有助于",
-    politician: "政治家，从政者；投机钻营者",
-    lightning: "闪电",
-    electricity: "电，电能",
-    theory: "学说，论；原理；看法，意见",
-    thunderstorm: "雷雨，雷暴",
-    ribbon: "带子，丝带；带状物",
-    metal: "金属",
-    charge: "充电；收费；控告；谴责；使…承担责任；使充满",
-    electric: "电的，发电的，电动的",
-    bang: "突然的巨响；猛敲，猛击",
-    with_a_bang: "很成功；引人注目，有强烈影响",
-    standout: "突出的",
-    atomic: "原子的；原子能的",
-    bomb: "炸弹；核武器",
-    evil: "罪恶，罪行；害处，坏处",
-    involve: "牵涉，影响；包含；（使）参加",
-    scientific: "科学的，关于科学的；细致严谨的",
-    credit: "赞扬，认可；信用",
-    moral: "道德的；道义上的；品行端正的",
-    apply: "应用；申请；涂；有关",
-    negate: "取消，使无效；否认，否定",
-    intellectual: "脑力的；有才智的，智力发达的",
-    mystery: "神秘；神秘的人（或事物）；悬疑作品",
-    let_sb_down: "使某人失望",
-    ignorance: "无知",
-    as_to: "关于，至于",
-    take_it_for_granted: "想当然地认为，认为…是理所当然",
-    freedom: "自由",
-    authority: "权威；权力；官方",
-    permit: "允许，准许，许可；使有可能",
-    responsibility: "责任，负责；职责，义务",
-    declare: "表明，宣称；公布，宣布；申报",
-    nationality: "国籍；民族",
-    put_forward: "提出，提议，建议",
-    evolution: "进化；演变，发展",
-    publish: "出版，发行；发表；公布",
-    marriage: "结婚，婚姻；已婚状态"
-    // 单词和中文翻译如前所示...
+   "republic": "共和国，共和政体",
+    "malaria": "疟疾",
+    "deadly": "致命的；十足的，彻底的",
+    "survival": "生存，存活；残存物，幸存事物",
+    "province": "省，省份",
+    "broad": "广泛的；宽阔的，广阔的；概括的；开阔的",
+    "intend": "想要，计划；意指",
+    "extract": "提取物；选录",
+    "herb": "药草，香草；草本",
+    "refer": "查阅，参考；提到，谈及",
+    "experiment": "实验，试验；尝试，实践",
+    "trial": "试用，试验；审讯，审判；考验",
+    "limited": "有限的",
+    "household": "家庭的，家用的，家务的",
+    "container": "容器；集装箱，货柜",
+    "postpone": "延迟，延期",
+    "sufficient": "足够的，充足的",
+    "data": "数据，资料，材料",
+    "speed_up": "（使）加速",
+    "pay_off": "成功，奏效，达到目的",
+    "error": "错误，差错",
+    "through_trial_and_error": "反复试验",
+    "wisdom": "智慧，知识，学问；才智；明智",
+    "beneficial": "有益的，有用的",
+    "conduct": "组织，实施；指挥；引导；举止",
+    "illustrate": "说明，解释；加插图于",
+    "penicillin": "青霉素，盘尼西林",
+    "mould": "霉菌；模具；类型",
+    "bacteria": "细菌",
+    "surround": "围绕，环绕；包围；与…紧密相关",
+    "indicate": "表明；暗示；提及；指出",
+    "accident": "意外，偶然的事；事故，意外遭遇",
+    "by_accident": "偶然，意外地",
+    "intelligent": "有才智的，聪明的；有智力的",
+    "favour": "较喜欢；偏袒；有助于",
+    "politician": "政治家，从政者；投机钻营者",
+    "lightning": "闪电",
+    "electricity": "电，电能",
+    "theory": "学说，论；原理；看法，意见",
+    "thunderstorm": "雷雨，雷暴",
+    "ribbon": "带子，丝带；带状物",
+    "metal": "金属",
+    "charge": "充电；收费；控告；谴责；使…承担责任；使充满",
+    "electric": "电的，发电的，电动的",
+    "bang": "突然的巨响；猛敲，猛击",
+    "with_a_bang": "很成功；引人注目，有强烈影响",
+    "standout": "突出的",
+    "atomic": "原子的；原子能的",
+    "bomb": "炸弹；核武器",
+    "evil": "罪恶，罪行；害处，坏处",
+    "involve": "牵涉，影响；包含；（使）参加",
+    "scientific": "科学的，关于科学的；细致严谨的",
+    "credit": "赞扬，认可；信用",
+    "moral": "道德的；道义上的；品行端正的",
+    "apply": "应用；申请；涂；有关",
+    "negate": "取消，使无效；否认，否定",
+    "intellectual": "脑力的；有才智的，智力发达的",
+    "mystery": "神秘；神秘的人（或事物）；悬疑作品",
+    "let_sb_down": "使某人失望",
+    "ignorance": "无知",
+    "as_to": "关于，至于",
+    "take_it_for_granted": "想当然地认为，认为…是理所当然",
+    "freedom": "自由",
+    "authority": "权威；权力；官方",
+    "permit": "允许，准许，许可；使有可能",
+    "responsibility": "责任，负责；职责，义务",
+    "declare": "表明，宣称；公布，宣布；申报",
+    "nationality": "国籍；民族",
+    "put_forward": "提出，提议，建议",
+    "evolution": "进化；演变，发展",
+    "publish": "出版，发行；发表；公布",
+    "marriage": "结婚，婚姻；已婚状态"
+// 这是你刚才要加的例子
+    // Your words dictionary here
 };
 
+let keys = Object.keys(words);
+let totalWords = keys.length;
+let correctCount = 0;
+let wordsAnswered = 0;
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(keys);
+
 function generateQuestion() {
-    const keys = Object.keys(words);
-    const questionIndex = Math.floor(Math.random() * keys.length);
-    const questionWord = keys[questionIndex];
+    if (keys.length === 0) {
+        document.getElementById('word').textContent = "Quiz Completed!";
+        document.getElementById('optionsContainer').style.display = "none";
+        return;
+    }
+    const questionIndex = keys.pop();
+    const questionWord = questionIndex;
     const correctAnswer = words[questionWord];
     let options = [];
-    for (let i = 0; i < 3; i++) {
-        let optionIndex;
-        do {
-            optionIndex = Math.floor(Math.random() * keys.length);
-        } while (optionIndex === questionIndex || options.includes(words[keys[optionIndex]]));
-        options.push(words[keys[optionIndex]]);
-    }
+    let tempKeys = Object.keys(words).filter(key => key !== questionWord);
+    shuffle(tempKeys);
+    tempKeys = tempKeys.slice(0, 3);
+    options = tempKeys.map(key => words[key]);
     options.push(correctAnswer);
-    options.sort(() => Math.random() - 0.5);
+    shuffle(options);
     document.getElementById('word').textContent = questionWord.replace('_', ' ');
     document.getElementById('optionA').textContent = 'A: ' + options[0];
     document.getElementById('optionB').textContent = 'B: ' + options[1];
     document.getElementById('optionC').textContent = 'C: ' + options[2];
     document.getElementById('optionD').textContent = 'D: ' + options[3];
     document.getElementById('correct').value = options.indexOf(correctAnswer);
+    updateProgress();
 }
 
 function checkAnswer(selected) {
@@ -149,17 +181,27 @@ function checkAnswer(selected) {
     if (selected === parseInt(correct)) {
         selectedButton.style.backgroundColor = 'lightgreen';
         document.getElementById('match').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-            generateQuestion();
-        }, 1000);
+        correctCount++;
     } else {
         selectedButton.style.backgroundColor = 'lightcoral';
         document.getElementById('unmatch').play();
-        setTimeout(() => {
-            selectedButton.style.backgroundColor = 'white';
-        }, 1000);
     }
+    setTimeout(() => {
+        selectedButton.style.backgroundColor = 'white';
+        wordsAnswered++;
+        updateStats();
+        generateQuestion();
+    }, 1000);
+}
+
+function updateProgress() {
+    const progressPercent = ((totalWords - keys.length) / totalWords) * 100;
+    document.getElementById('progress').style.width = `${progressPercent}%`;
+}
+
+function updateStats() {
+    const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
+    document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
 }
 
 document.addEventListener('DOMContentLoaded', generateQuestion);
@@ -175,6 +217,10 @@ document.addEventListener('DOMContentLoaded', generateQuestion);
         <button id="optionC" class="option" onclick="checkAnswer(2)"></button>
         <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
     </div>
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <div id="stats"></div>
     <input type="hidden" id="correct">
 </div>
 <audio id="match" src="match.wav"></audio>
