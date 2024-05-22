@@ -6,22 +6,21 @@
 <title>单词交互测试b3u3</title>
 <style>
     body, html {
-        height: 100%;
+        height: auto;
         margin: 0;
         font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content:center;
+        display: block;
+        overflow-y: scroll;
     }
     #content {
         text-align: center;
         width: 100%;
+        padding: 20px;
     }
     #word {
- font-family: Arial-Black, sans-serif;
+        font-family: Arial-Black, sans-serif;
         font-size: 36px;
-font-color:blue
+        color: blue;
         margin-top: 20px;
     }
     .option {
@@ -35,14 +34,17 @@ font-color:blue
         cursor: pointer;
         width: 300px;
         display: inline-block;
+        text-align: left;
+        box-sizing: border-box;
     }
     .option:hover {
         background-color: #f0f0f0;
     }
     #optionsContainer {
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
     }
     #progressBar {
         width: 90%;
@@ -56,6 +58,22 @@ font-color:blue
     }
     #stats {
         margin-top: 10px;
+    }
+    #incorrectWords {
+        margin-top: 20px;
+        font-size: 16px;
+        color: red;
+        width: 100%;
+        text-align: left;
+        padding: 0 20px;
+    }
+    @media (max-width: 600px) {
+        .option {
+            width: 80%;
+        }
+        #optionsContainer {
+            flex-direction: column;
+        }
     }
 </style>
 <script>
@@ -124,14 +142,13 @@ const words = {
     "opera": "歌剧；歌剧院",
     "badminton": "羽毛球运动",
     "cut_back_on": "减少"
-// 这是你刚才要加的例子
-    // Your words dictionary here
 };
 
 let keys = Object.keys(words);
 let totalWords = keys.length;
 let correctCount = 0;
 let wordsAnswered = 0;
+let incorrectWords = [];
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -177,6 +194,9 @@ function checkAnswer(selected) {
     } else {
         selectedButton.style.backgroundColor = 'lightcoral';
         document.getElementById('unmatch').play();
+        const incorrectWord = document.getElementById('word').textContent.trim();
+        incorrectWords.push(incorrectWord + ': ' + words[incorrectWord.replace(' ', '_')]);
+        updateIncorrectWords();
     }
     setTimeout(() => {
         selectedButton.style.backgroundColor = 'white';
@@ -194,6 +214,16 @@ function updateProgress() {
 function updateStats() {
     const correctRate = ((correctCount / wordsAnswered) * 100).toFixed(1);
     document.getElementById('stats').textContent = `正确个数: ${correctCount} / ${wordsAnswered} (${correctRate}%)`;
+}
+
+function updateIncorrectWords() {
+    const incorrectWordsContainer = document.getElementById('incorrectWords');
+    incorrectWordsContainer.innerHTML = '';
+    incorrectWords.forEach(word => {
+        const wordElement = document.createElement('div');
+        wordElement.textContent = word;
+        incorrectWordsContainer.appendChild(wordElement);
+    });
 }
 
 document.addEventListener('DOMContentLoaded', generateQuestion);
@@ -214,6 +244,7 @@ document.addEventListener('DOMContentLoaded', generateQuestion);
     </div>
     <div id="stats"></div>
     <input type="hidden" id="correct">
+    <div id="incorrectWords"></div>
 </div>
 <audio id="match" src="match.wav"></audio>
 <audio id="unmatch" src="unmatch.wav"></audio>
