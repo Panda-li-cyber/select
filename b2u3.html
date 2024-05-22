@@ -42,10 +42,18 @@
         flex-direction: column;
         align-items: center;
     }
+    #incorrectWords {
+        margin-top: 20px;
+        font-size: 16px;
+        color: red;
+        width: 100%;
+        text-align: left;
+        padding: 0 20px;
+    }
 </style>
 <script>
 const words = {
-wedding: "婚礼，结婚庆典",
+    wedding: "婚礼，结婚庆典",
     ceremony: "典礼，仪式",
     decorate: "装饰；点缀；粉刷，油漆",
     formal: "（穿着、言语、行为等）适合正式场合的，正规的，庄重的",
@@ -127,8 +135,9 @@ wedding: "婚礼，结婚庆典",
     creep: "渐渐出现",
     tear: "眼泪，泪珠",
     sleeve: "袖子"
-    // 单词和中文翻译如前所示...
 };
+
+let incorrectWords = [];
 
 function generateQuestion() {
     const keys = Object.keys(words);
@@ -166,10 +175,23 @@ function checkAnswer(selected) {
     } else {
         selectedButton.style.backgroundColor = 'lightcoral';
         document.getElementById('unmatch').play();
+        const incorrectWord = document.getElementById('word').textContent.trim();
+        incorrectWords.push(incorrectWord + ': ' + words[incorrectWord.replace(' ', '_')]);
+        updateIncorrectWords();
         setTimeout(() => {
             selectedButton.style.backgroundColor = 'white';
         }, 1000);
     }
+}
+
+function updateIncorrectWords() {
+    const incorrectWordsContainer = document.getElementById('incorrectWords');
+    incorrectWordsContainer.innerHTML = '';
+    incorrectWords.forEach(word => {
+        const wordElement = document.createElement('div');
+        wordElement.textContent = word;
+        incorrectWordsContainer.appendChild(wordElement);
+    });
 }
 
 document.addEventListener('DOMContentLoaded', generateQuestion);
@@ -186,6 +208,7 @@ document.addEventListener('DOMContentLoaded', generateQuestion);
         <button id="optionD" class="option" onclick="checkAnswer(3)"></button>
     </div>
     <input type="hidden" id="correct">
+    <div id="incorrectWords"></div>
 </div>
 <audio id="match" src="match.wav"></audio>
 <audio id="unmatch" src="unmatch.wav"></audio>
