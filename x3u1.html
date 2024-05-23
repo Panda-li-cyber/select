@@ -13,26 +13,32 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: #f0f8ff;
     }
     #content {
         text-align: center;
         width: 100%;
+        padding: 20px;
     }
     #word {
-        font-size: 24px;
+        font-family: Arial-Black, sans-serif;
+        font-size: 36px;
+        color: blue;
         margin-top: 20px;
     }
     .option {
-        margin: 5px;
+        margin: 10px 0;
         padding: 10px;
         border: 2px solid #007BFF;
         border-radius: 5px;
         color: black;
         background-color: white;
-        font-size: 16px;
+        font-size: 18px;
         cursor: pointer;
-        width: 200px;
-        display: inline-block;
+        width: 80%;
+        max-width: 300px;
+        box-sizing: border-box;
+        transition: background-color 0.3s ease;
     }
     .option:hover {
         background-color: #f0f0f0;
@@ -54,11 +60,18 @@
     }
     #stats {
         margin-top: 10px;
+        font-size: 18px;
+        color: #333;
+    }
+    @media (max-width: 600px) {
+        .option {
+            width: 100%;
+        }
     }
 </style>
 <script>
 const words = {
-"blooming": "盛开的,开花的",
+    "blooming": "盛开的,开花的",
     "unfold": "开花;展开,打开;展示，展现",
     "ethnically": "种族地",
     "distinct": "截然不同的,有区别的,不同种类的；清楚的，清晰的",
@@ -140,8 +153,8 @@ const words = {
     "fox": "狐狸;狡猾的人",
     "polar": "极地的;完全相反的",
     "delicacy": "佳肴;谨慎;敏感",
-    "lamb": "羊羔肉;羔羊",
-    "teacher": "老师"  // 这是你刚才要加的例子
+    "lamb": "羊羔肉;羔羊"
+    // 这是你刚才要加的例子
     // Your words dictionary here
 };
 
