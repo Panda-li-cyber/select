@@ -19,9 +19,9 @@
         width: 100%;
     }
     #word {
- font-family: Arial-Black, sans-serif;
+        font-family: Arial-Black, sans-serif;
         font-size: 36px;
-font-color:blue
+        color: blue;
         margin-top: 20px;
     }
     .option {
@@ -35,6 +35,7 @@ font-color:blue
         cursor: pointer;
         width: 300px;
         display: inline-block;
+        transition: background-color 0.3s ease;
     }
     .option:hover {
         background-color: #f0f0f0;
@@ -56,11 +57,13 @@ font-color:blue
     }
     #stats {
         margin-top: 10px;
+        font-size: 18px;
+        color: #333;
     }
 </style>
 <script>
 const words = {
-"react": "作出反应；有不良反应，过敏；起化学反应",
+    "react": "作出反应；有不良反应，过敏；起化学反应",
     "gentle": "温柔的；温和的；柔和的",
     "encode": "把···编码；把···译成电码（或密码）",
     "mail": "电子邮件；邮政；邮件",
@@ -127,7 +130,7 @@ const words = {
     "slip": "滑倒；滑落；溜；陷入；差错；纸条；滑跤",
     "fence": "栅栏，篱笆",
     "contest": "比赛，竞赛；争夺，竞争；争取赢得；争辩，就…提出异议"
-// 这是你刚才要加的例子
+    // 这是你刚才要加的例子
     // Your words dictionary here
 };
 
